@@ -4,8 +4,8 @@ import org.eclipse.sumo.libtraci.Vehicle;
 
 public class Simulation {
 	//contains the objects within the current simulation
-	Car[] cars;
-	trafficLight[] trafficLights;
+	private Car[] cars;
+	private trafficLight[] trafficLights;
 	Simulation(){
 		cars=new Car[0];
 		trafficLights=new trafficLight[0];
@@ -20,6 +20,15 @@ public class Simulation {
 		g[cars.length]=c;
 		cars=g;
 	}
+
+	public Car[] getCars() {
+		return cars;
+	}
+
+	public trafficLight[] getTrafficLights() {
+		return trafficLights;
+	}
+
 	public void load() {
 		org.eclipse.sumo.libtraci.Simulation.preloadLibraries();
 	}

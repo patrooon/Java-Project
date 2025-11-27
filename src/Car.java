@@ -19,10 +19,6 @@ public class Car {
 		setSpeed(Vehicle.getSpeed(id));
 	}
 
-	public void add(String routeID, int Time) {
-		Vehicle.add(this.id, routeID, "Car", String.valueOf(Simulation.getCurrentTime() / 1000.0 * Time));
-	}
-
 	public double getSpeed() {
 		return speed;
 	}
