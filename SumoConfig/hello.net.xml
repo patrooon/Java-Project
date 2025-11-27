@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-11-24T14:08:01.841684+01:00 by Eclipse SUMO netedit 1.25.0
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\Amin\Desktop\New folder\Java-Project-main\hello.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\Amin\Desktop\New folder\Java-Project-main\hello.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-57.12,-39.89,70.23,-1.36" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":clusterJ6_J7_J8_0" function="internal">
+        <lane id=":clusterJ6_J7_J8_0_0" index="0" speed="13.89" length="11.20" shape="11.51,0.24 0.32,0.24"/>
+    </edge>
+    <edge id=":clusterJ6_J7_J8_1" function="internal">
+        <lane id=":clusterJ6_J7_J8_1_0" index="0" speed="6.50" length="9.03" shape="5.92,-8.56 6.27,-6.11 7.32,-4.36 9.06,-3.31 11.51,-2.96"/>
+    </edge>
+    <edge id=":clusterJ6_J7_J8_2" function="internal">
+        <lane id=":clusterJ6_J7_J8_2_0" index="0" speed="13.89" length="11.20" shape="0.32,-2.96 11.51,-2.96"/>
+    </edge>
+
+    <edge id="-E1" from="J4" to="clusterJ6_J7_J8" priority="-1" shape="70.23,-1.36 3.21,-1.36">
+        <lane id="-E1_0" index="0" speed="13.89" length="58.72" shape="70.23,0.24 11.51,0.24"/>
+    </edge>
+    <edge id="-E1.67" from="clusterJ6_J7_J8" to="J3" priority="-1" shape="3.21,-1.36 -57.12,-1.36">
+        <lane id="-E1.67_0" index="0" speed="13.89" length="57.44" shape="0.32,0.24 -57.12,0.24"/>
+    </edge>
+    <edge id="E1" from="J3" to="clusterJ6_J7_J8" priority="-1" shape="-57.12,-1.36 -3.49,-1.36">
+        <lane id="E1_0" index="0" speed="13.89" length="57.44" shape="-57.12,-2.96 0.32,-2.96"/>
+    </edge>
+    <edge id="E1.54" from="clusterJ6_J7_J8" to="J4" priority="-1" shape="-3.49,-1.36 70.23,-1.36">
+        <lane id="E1.54_0" index="0" speed="13.89" length="58.72" shape="11.51,-2.96 70.23,-2.96"/>
+    </edge>
+    <edge id="E2" from="J5" to="clusterJ6_J7_J8" priority="-1" shape="4.35,-39.89 4.32,-8.21">
+        <lane id="E2_0" index="0" speed="13.89" length="31.33" shape="5.95,-39.89 5.92,-8.56"/>
+    </edge>
+
+    <tlLogic id="clusterJ6_J7_J8" type="static" programID="0" offset="0">
+        <phase duration="42" state="GrG"/>
+        <phase duration="3"  state="Gry"/>
+        <phase duration="42" state="GGr"/>
+        <phase duration="3"  state="Gyr"/>
+    </tlLogic>
+
+    <junction id="J3" type="dead_end" x="-57.12" y="-1.36" incLanes="-E1.67_0" intLanes="" shape="-57.12,-1.36 -57.12,1.84 -57.12,-1.36"/>
+    <junction id="J4" type="dead_end" x="70.23" y="-1.36" incLanes="E1.54_0" intLanes="" shape="70.23,-1.36 70.23,-4.56 70.23,-1.36"/>
+    <junction id="J5" type="dead_end" x="4.35" y="-39.89" incLanes="" intLanes="" shape="4.35,-39.89 7.55,-39.89"/>
+    <junction id="clusterJ6_J7_J8" type="traffic_light" x="1.35" y="-3.64" incLanes="-E1_0 E2_0 E1_0" intLanes=":clusterJ6_J7_J8_0_0 :clusterJ6_J7_J8_1_0 :clusterJ6_J7_J8_2_0" shape="11.52,1.84 11.52,-4.56 9.29,-5.00 8.52,-5.56 7.96,-6.34 7.63,-7.34 7.52,-8.56 4.32,-8.56 3.87,-6.34 3.32,-5.56 2.54,-5.00 1.54,-4.67 0.32,-4.56 0.32,1.84">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="100" foes="100" cont="0"/>
+        <request index="2" response="000" foes="010" cont="0"/>
+    </junction>
+
+    <connection from="-E1" to="-E1.67" fromLane="0" toLane="0" via=":clusterJ6_J7_J8_0_0" tl="clusterJ6_J7_J8" linkIndex="0" dir="s" state="O"/>
+    <connection from="E1" to="E1.54" fromLane="0" toLane="0" via=":clusterJ6_J7_J8_2_0" tl="clusterJ6_J7_J8" linkIndex="2" dir="s" state="O"/>
+    <connection from="E2" to="E1.54" fromLane="0" toLane="0" via=":clusterJ6_J7_J8_1_0" tl="clusterJ6_J7_J8" linkIndex="1" dir="r" state="o"/>
+
+    <connection from=":clusterJ6_J7_J8_0" to="-E1.67" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":clusterJ6_J7_J8_1" to="E1.54" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":clusterJ6_J7_J8_2" to="E1.54" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

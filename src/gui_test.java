@@ -1,14 +1,16 @@
-import org.eclipse.sumo.libtraci.Simulation;
-import org.eclipse.sumo.libtraci.StringVector;
-
 public class gui_test {
+	//this is the class that should be executed to run the simulation
 	public static void main(String[] args) {
-		Simulation.preloadLibraries();
-		Simulation.start(
-				new StringVector(new String[] {"sumo-gui", "-c", "hello.sumocfg", "--start", "--delay", "50"}));
-		for (int i = 0; i < 100; i++) {
-			Simulation.step();
+		trafficLight tl = new trafficLight("clusterJ6_J7_J8");
+		Simulation sim=new Simulation();
+		sim.start("SumoConfig/hello.sumocfg", 1000);
+		for (int i = 0; i < 15; i++) {
+			Car car = new Car();
+			sim.addCar(car, "route0");
+			sim.step();
 		}
-		Simulation.close();
+		for (int i = 0; i < 300; i++) {
+			sim.step();
+		}
 	}
 }
