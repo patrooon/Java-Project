@@ -6,9 +6,11 @@ public class Simulation {
 	//contains the objects within the current simulation
 	private Car[] cars;
 	private trafficLight[] trafficLights;
+    private Statistics stats;
 	Simulation(){
 		cars=new Car[0];
 		trafficLights=new trafficLight[0];
+        stats=new Statistics();
 	}
 	void addCar(Car c,String routeID){
 		//pretty inefficient, maybe use  a linked list instead. or  a dictionary
@@ -70,11 +72,15 @@ public class Simulation {
 	}
 
 	public void step() {
+        // called from the simulation thread once per tick
 		org.eclipse.sumo.libtraci.Simulation.step();
 		for (int i=0;i<cars.length;i++){
 			//cars[i].update();
-
 		}
+        for (int i=0;i<trafficLights.length;i++){
+            trafficLights[i].update();
+        }
+        stats.update();
 	}
 }
 

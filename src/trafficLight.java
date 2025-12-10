@@ -20,6 +20,9 @@ public class trafficLight {
 		this.currentColor = value1;
 		setTrafficLight();
 	}
+    public void update(){
+        currentColor=TrafficLight.getRedYellowGreenState(id);
+    }
 
 	public String getTrafficLight() {
 		return TrafficLight.getRedYellowGreenState(id);
