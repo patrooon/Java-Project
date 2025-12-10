@@ -1,7 +1,7 @@
-public class Vector2 {
+public class Vector2D {
     public float x;
     public float y;
-    public Vector2(float x,float y){
+    public Vector2D(float x, float y){
         this.x=x;
         this.y=y;
     }
@@ -17,9 +17,15 @@ public class Vector2 {
         x*=inverse;
         y*=inverse;
     }
-    public Vector2 subtract(Vector2 other){
+    public Vector2D subtract(Vector2D other){
         x-=other.x;
         y-=other.y;
         return this;
     }
+	public void rotatedBy(float radians){
+		float x=this.x;
+		float y=this.y;
+		this.x=(float) (x * Math.cos(radians) - y * Math.sin(radians));
+		this.y=(float) (x * Math.sin(radians) + y * Math.cos(radians));
+	}
 }

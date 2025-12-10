@@ -1,5 +1,5 @@
 public class Transform2D {
-    private Vector2 position;
+    private Vector2D position;
     private float rotation;
     private float scale;
 
@@ -7,14 +7,14 @@ public class Transform2D {
         return rotation;
     }
 
-    public Vector2 getPosition() {
+    public Vector2D getPosition() {
         return position;
     }
 
     public float getScale() {
         return scale;
     }
-    public void setPosition(Vector2 pos){
+    public void setPosition(Vector2D pos){
         this.position=pos;
     }
     public void rotate(float diff){
@@ -26,11 +26,16 @@ public class Transform2D {
             rotation+=3.14159*2;
         }
     }
-    public Transform2D(Vector2 position){
+    public Transform2D(Vector2D position){
         this.position=position;
         rotation=0;
         scale=1;
     }
+	public Transform2D(Vector2D position,float rotation, float scale){
+		this.position=position;
+		this.rotation=rotation;
+		this.scale=scale;
+	}
 
     public void setScale(float scale) {
         this.scale = scale;

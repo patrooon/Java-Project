@@ -1,17 +1,15 @@
 import org.eclipse.sumo.libtraci.TraCIPosition;
 import org.eclipse.sumo.libtraci.Vehicle;
-import org.eclipse.sumo.libtraci.Simulation;
 
 public class Car {
 	private static int currentID=0;
 
-	private String id;
+	private final String id;
 	private double speed;
-    private Vector2 position;
-    private float rotation;//y rotation in 3dspace
+    private Transform2D transform;
 
-    public Vector2 getPosition(){
-        return this.position;
+    public Vector2D getPosition(){
+        return this.transform.getPosition();
     }
 
 	public Car() {
@@ -29,7 +27,7 @@ public class Car {
 		setSpeed(Vehicle.getSpeed(id));
         //TODO look into tracipos and how to directly use it for rendering, rather than casting to vector2
         TraCIPosition tracipos=Vehicle.getPosition(id);
-        position=new Vector2((float) tracipos.getX(), (float) tracipos.getY());
+        transform.setPosition(new Vector2D((float) tracipos.getX(), (float) tracipos.getY()));//all this does is overwrite the position in transform with the one in sumo
 	}
 
 	public double getSpeed() {
@@ -49,6 +47,9 @@ public class Car {
 
 	public String getId() {
 		return this.id;
+	}
+	public Transform2D getTransform(){
+		return transform;
 	}
 
 }

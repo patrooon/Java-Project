@@ -10,8 +10,8 @@ public class gui_test {
 			Car car = new Car();
 			sim.addCar(car, "route0");
 			sim.step();
-            sim.printCars();
-            sim.printTrafficLights();
+            //sim.printCars();
+            //sim.printTrafficLights();
 		}
 		for (int i = 0; i < 300; i++) {
 			sim.step();

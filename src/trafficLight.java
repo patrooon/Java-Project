@@ -3,8 +3,9 @@ import org.eclipse.sumo.libtraci.TrafficLight;
 public class trafficLight {
 
 	private String currentColor;
-	private String id;
+	private final String id;
 	private float cycleLength;
+	private Transform2D transform;
 
 
 	public trafficLight(String id) {
@@ -31,5 +32,8 @@ public class trafficLight {
 	@Override
 	public String toString() {
 		return "Traffic light with id: "+id+" and light: "+ currentColor;
+	}
+	public Transform2D getTransform(){
+		return transform;
 	}
 }
