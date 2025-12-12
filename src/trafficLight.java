@@ -17,6 +17,18 @@ public class trafficLight {
 		TrafficLight.setRedYellowGreenState(id, currentColor);
 	}
 
+	public void setCycleLength(float cycleLength) {
+		if (cycleLength<=0){
+			System.out.println("the traffic light's cycle length needs to be a positive number");
+			return;
+		}
+		this.cycleLength = cycleLength;
+		TrafficLight.setPhaseDuration(id,cycleLength);
+	}
+	public float getCycleLength(){
+		return cycleLength;
+	}
+
 	public void setTrafficLight(String value1) {
 		this.currentColor = value1;
 		setTrafficLight();

@@ -21,5 +21,7 @@ public class Camera2D {
     }
 	public Vector2D getScreenPositionFromLocal(Transform2D local){
 		return new Vector2D(0.5f+zoom*local.getPosition().x/ defaultFrameSize.x,0.5f+zoom*local.getPosition().y/ defaultFrameSize.y);
+		// this returns a vector between (0,0)  and (1,1) where 0,0 is the top left corner and 1,1 is the bottom right corner
+		// assuming the local_position is within the framesize
 	}
 }

@@ -13,7 +13,7 @@ public class gui_test {
             //sim.printCars();
             //sim.printTrafficLights();
 		}
-		for (int i = 0; i < 300; i++) {
+		while(true){
 			sim.step();
 		}
 	}

@@ -26,6 +26,18 @@ public class Simulation {
 	public Car[] getCars() {
 		return cars;
 	}
+	// might be useful if we want to select cars from the map directly
+	public Car getClosestCarToPosition(Vector2D globalPosition){
+		float leastDist=-1;
+		Car closestCar=null;
+		for (Car i :getCars()){
+			if (leastDist==-1 || i.getPosition().distanceTo(globalPosition)<leastDist){
+				leastDist=i.getPosition().distanceTo(globalPosition);
+				closestCar=i;
+			}
+		}
+		return closestCar;
+	}
 
 	public trafficLight[] getTrafficLights() {
 		return trafficLights;

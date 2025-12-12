@@ -22,6 +22,9 @@ public class Vector2D {
         y-=other.y;
         return this;
     }
+	public float distanceTo(Vector2D other){
+		return this.subtract(other).length();
+	}
 	public void rotatedBy(float radians){
 		float x=this.x;
 		float y=this.y;
