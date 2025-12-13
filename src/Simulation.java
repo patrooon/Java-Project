@@ -1,10 +1,10 @@
-import org.eclipse.sumo.libtraci.StringVector;
-import org.eclipse.sumo.libtraci.TrafficLight;
-import org.eclipse.sumo.libtraci.Vehicle;
+import org.eclipse.sumo.libtraci.*;
+import org.eclipse.sumo.libtraci.Route;
 
 public class Simulation {
 	//contains the objects within the current simulation
 	private Car[] cars;
+	private route[] routes;
 	private trafficLight[] trafficLights;
     private Statistics stats;
 	Simulation(){
@@ -21,6 +21,45 @@ public class Simulation {
 		}
 		g[cars.length]=c;
 		cars=g;
+	}
+	void createNewCar(String edge,String initialSpeed,String color,String route){
+		Car c=new Car();
+		c.setSpeed(Integer.parseInt(initialSpeed));
+		c.setColor(color);
+		addCar(c,route);
+	}
+	Car getCarFromID(String carID){
+		for(Car c:getCars()){
+			if (c.getId().equals(carID)){
+				return c;
+			}
+		}
+		return null;
+	}
+
+	String getCarsColorFromID(String carID){
+		Car c=getCarFromID(carID);
+		if (c!=null){
+			return c.getColor();
+		}
+		return null;
+
+	}
+	String getCarsSpeedFromID(String carID){
+		Car c=getCarFromID(carID);
+		if (c!=null){
+			return String.valueOf(c.getSpeed());
+		}
+		return null;
+
+	}
+	String getCarsRouteFromID(String carID){
+		Car c=getCarFromID(carID);
+		if (c!=null){
+			return String.valueOf(c.getSpeed());
+		}
+		return null;
+
 	}
 
 	public Car[] getCars() {
@@ -82,6 +121,63 @@ public class Simulation {
 		}
 		return cars;
 	}
+	public route[] getInitialRoutes(){
+		String[] routeIDs= Route.getIDList().toArray(new String[0]);
+		route[] routes=new route[routeIDs.length];
+		for (int i=0;i< routeIDs.length;i++){
+			routes[i]=new route(routeIDs[i],Route.getEdges(routeIDs[i]));
+
+		}
+		return routes;
+	}
+	public route getRouteFromID(String routeID){
+		for(route r:getRoutes()){
+			if (r.getID().equals(routeID)){
+				return r;
+			}
+		}
+		return null;
+	}
+	public route[] getRoutes(){
+		return routes;
+	}
+	public String[] getRouteIDs(){
+		route[] routes=getRoutes();
+		String[] ids=new String[routes.length];
+		for (int i=0;i<routes.length;i++){
+			ids[i]=routes[i].getID();
+		}
+		return ids;
+	}
+	public String[] getCarIDs(){
+		Car[] cars=getCars();
+		String[] ids=new String[cars.length];
+		for (int i=0;i<cars.length;i++){
+			ids[i]=cars[i].getId();
+		}
+		return ids;
+	}
+	public String[] getColors(){
+		return null;
+		//TODO add a list of preset colors
+	}
+	public String[] getTrafficLightIDs(){
+		trafficLight[] tls=getTrafficLights();
+		String[] ids=new String[tls.length];
+		for (int i=0;i<tls.length;i++){
+			ids[i]=tls[i].getID();
+		}
+		return ids;
+	}
+	public trafficLight getTrafficLightFromID(String id){
+		for (trafficLight t:getTrafficLights()){
+			if (t.getID().equals(id)){
+				return t;
+			}
+		}
+		return null;
+	}
+
 
 	public void step() {
         // called from the simulation thread once per tick

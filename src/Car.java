@@ -3,9 +3,11 @@ import org.eclipse.sumo.libtraci.Vehicle;
 
 public class Car {
 	private static int currentID=0;
-
 	private final String id;
 	private double speed;
+	private String edge;
+	private String route;
+	private String color;//color as a hexcode
     private Transform2D transform;
 
     public Vector2D getPosition(){
@@ -28,6 +30,18 @@ public class Car {
         //TODO look into tracipos and how to directly use it for rendering, rather than casting to vector2
         TraCIPosition tracipos=Vehicle.getPosition(id);
         transform.setPosition(new Vector2D((float) tracipos.getX(), (float) tracipos.getY()));//all this does is overwrite the position in transform with the one in sumo
+	}
+	public void setColor(String hexColor){
+		this.color=hexColor;
+	}
+	public String getColor() {
+		return color;
+	}
+	public String getRoute(){
+		return route;
+	}
+	public String getEdge(){
+		return edge;
 	}
 
 	public double getSpeed() {
