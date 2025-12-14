@@ -2,6 +2,7 @@ public class gui_test {
 	//this is the class that should be executed to run the simulation
 	//the GitHub repo can be found at https://github.com/patrooon/Java-Project
 
+
 	public static void main(String[] args) {
 		trafficLight tl = new trafficLight("clusterJ6_J7_J8");
 		Simulation sim=new Simulation();

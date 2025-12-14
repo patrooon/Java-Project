@@ -142,7 +142,8 @@ public class Simulation {
 		return routes;
 	}
 	public String[] getRouteIDs(){
-		route[] routes=getRoutes();
+        if (routes == null || routes.length == 0) return new String[] {"route0"};
+        route[] routes=getRoutes();
 		String[] ids=new String[routes.length];
 		for (int i=0;i<routes.length;i++){
 			ids[i]=routes[i].getID();
