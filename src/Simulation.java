@@ -179,6 +179,31 @@ public class Simulation {
 		return null;
 	}
 
+    public String getTrafficLightColorFromID(String id){
+        trafficLight t =  getTrafficLightFromID(id);
+        if(t!=null){
+            return t.getTrafficLight();
+        }
+        return null;
+    }
+
+    public String getTrafficLightCycleLengthFromID(String id){
+        trafficLight t =  getTrafficLightFromID(id);
+        if(t!=null){
+            return String.valueOf(t.getCycleLength());
+        }
+        return null;
+    }
+
+    public String setTrafficLightCycleLengthFromID(String id, float duration){
+        trafficLight t =  getTrafficLightFromID(id);
+        if(t!=null){
+            t.setCycleLengthRed(duration);
+            return String.valueOf(t.getCycleLength());
+        }
+        return null;
+    }
+
 
 	public void step() {
         // called from the simulation thread once per tick

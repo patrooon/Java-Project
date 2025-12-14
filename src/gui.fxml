@@ -24,7 +24,7 @@
                                   <Label layoutX="29.0" layoutY="70.0" text="Starting Speed:" />
                                   <Label layoutX="29.0" layoutY="109.0" text="Vehicle color:" />
                                   <Label layoutX="29.0" layoutY="153.0" text="Route:" />
-                                  <Button fx:id="buttonAddToSim" layoutX="105.0" layoutY="215.0" mnemonicParsing="false" text="Add to Simulation" onAction="#newCar" />
+                                  <Button fx:id="buttonAddToSim" layoutX="105.0" layoutY="215.0" mnemonicParsing="false" onAction="#newCar" text="Add to Simulation" />
                                   <ComboBox fx:id="comboBoxEdges" layoutX="137.0" layoutY="26.0" prefWidth="150.0" promptText="Select..." />
                                   <ComboBox fx:id="comboBoxColors" layoutX="137.0" layoutY="105.0" prefWidth="150.0" promptText="Select..." />
                                   <ComboBox fx:id="comboBoxRoutes" layoutX="137.0" layoutY="149.0" prefWidth="150.0" promptText="Select..." />
@@ -74,35 +74,29 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                <children>
-                                  <Pane layoutX="16.0" layoutY="47.0" prefHeight="91.0" prefWidth="290.0" style="-fx-background-color: AAAAAA;">
+                                  <Pane layoutX="16.0" layoutY="47.0" prefHeight="82.0" prefWidth="290.0" style="-fx-background-color: AAAAAA;">
                                      <children>
                                         <Label layoutX="14.0" layoutY="6.0" text="Current phase:" />
-                                        <Label layoutX="14.0" layoutY="28.0" text="Next phase in:" />
-                                        <Label layoutX="14.0" layoutY="49.0" text="Duration red light:" />
+                                        <Label layoutX="14.0" layoutY="32.0" text="Next phase in:" />
+                                        <Label layoutX="14.0" layoutY="56.0" text="Duration light:" />
                                         <Label fx:id="labelCurrentLightPhase" layoutX="145.0" layoutY="6.0" text="Label" />
-                                        <Label fx:id="labelNextLightPhase" layoutX="145.0" layoutY="27.0" text="Label" />
-                                        <Label fx:id="labelDurationRed" layoutX="145.0" layoutY="49.0" text="Label" />
-                                        <Label layoutX="13.0" layoutY="69.0" text="Duration green light" />
-                                        <Label fx:id="labelDurationGreen" layoutX="144.0" layoutY="69.0" text="Label" />
+                                        <Label fx:id="labelNextLightPhase" layoutX="145.0" layoutY="32.0" text="Label" />
+                                        <Label fx:id="labelDurationRed" layoutX="145.0" layoutY="56.0" text="Label" />
                                      </children>
                                   </Pane>
                                   <Label layoutX="25.0" layoutY="17.0" text="Select light:" />
-                                  <Pane layoutX="16.0" layoutY="175.0" prefHeight="92.0" prefWidth="289.0" style="-fx-background-color: AAAAAA;">
+                                  <Pane layoutX="16.0" layoutY="186.0" prefHeight="72.0" prefWidth="289.0" style="-fx-background-color: AAAAAA;">
                                      <children>
-                                        <Label layoutX="14.0" layoutY="6.0" text="Set new light durations:">
+                                        <Label layoutX="14.0" layoutY="6.0" text="Set new light duration:">
                                            <font>
                                               <Font name="System Bold" size="12.0" />
                                            </font>
                                         </Label>
-                                        <Label layoutX="16.0" layoutY="29.0" text="Red:" />
-                                        <Label layoutX="14.0" layoutY="61.0" text="Green:" />
-                                        <Button fx:id="buttonRedDuration" layoutX="225.0" layoutY="25.0" mnemonicParsing="false" text="Change" />
-                                        <Button fx:id="buttonGreenDuration" layoutX="225.0" layoutY="57.0" mnemonicParsing="false" text="Change" />
-                                        <TextField fx:id="textFieldRedDuration" layoutX="70.0" layoutY="25.0" />
-                                        <TextField fx:id="textFieldGreenDuration" layoutX="70.0" layoutY="57.0" />
+                                        <Button fx:id="buttonLIghtDuration" layoutX="195.0" layoutY="34.0" mnemonicParsing="false" text="Change" onAction="#setLightDurationBtn"/>
+                                        <TextField fx:id="textFieldLightDuration" layoutX="14.0" layoutY="34.0" />
                                      </children>
                                   </Pane>
-                                  <Button fx:id="buttonChangePhase" layoutX="102.0" layoutY="144.0" mnemonicParsing="false" text="Change phase now" />
+                                  <Button fx:id="buttonChangePhase" layoutX="102.0" layoutY="143.0" mnemonicParsing="false" text="Change phase now" />
                                  <ComboBox fx:id="comboBoxSelectLight" layoutX="123.0" layoutY="13.0" prefWidth="150.0" />
                                </children></AnchorPane>
                         </content>

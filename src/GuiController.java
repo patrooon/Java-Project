@@ -55,17 +55,11 @@ public class GuiController {
     @FXML
     private Label labelDurationRed;
     @FXML
-    private Label labelDurationGreen;
-    @FXML
     private Button buttonChangePhase;
     @FXML
-    private Button buttonRedDuration;
+    private Button buttonLightDuration;
     @FXML
-    private Button buttonGreenDuration;
-    @FXML
-    private TextField textFieldRedDuration;
-    @FXML
-    private TextField textFieldGreenDuration;
+    private TextField textFieldLightDuration;
 
 
     //Simulation
@@ -97,8 +91,16 @@ public class GuiController {
     }
 
     public void readLight(){
-        labelCurrentLightPhase.setText("");
-        /// Add possibility to read traffic lights for gui
+        String curTrafficLight = comboBoxSelectLight.getValue();
+        labelCurrentLightPhase.setText(sim.getTrafficLightColorFromID(curTrafficLight));
+        labelDurationRed.setText(sim.getTrafficLightCycleLengthFromID(curTrafficLight));
+    }
+
+    public void setLightDurationBtn(){
+        String curTrafficLight = comboBoxSelectLight.getValue();
+        Float dur = Float.valueOf(textFieldLightDuration.getText());
+        sim.setTrafficLightCycleLengthFromID(curTrafficLight, dur);
+        labelDurationRed.setText(sim.getTrafficLightCycleLengthFromID(curTrafficLight));
     }
 
     @FXML
