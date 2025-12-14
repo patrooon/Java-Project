@@ -108,7 +108,7 @@ public class GuiController {
     public void setLightDurationBtn(){
         String curTrafficLight = comboBoxSelectLight.getValue();
         Float dur = Float.valueOf(textFieldLightDuration.getText());
-        sim.setTrafficLightCycleLengthFromID(curTrafficLight, dur);
+        sim.setTrafficLightCycleLengthFromID(curTrafficLight, String.valueOf(dur));
         labelDurationRed.setText(sim.getTrafficLightCycleLengthFromID(curTrafficLight));
     }
 

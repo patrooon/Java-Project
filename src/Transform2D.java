@@ -31,6 +31,11 @@ public class Transform2D {
         rotation=0;
         scale=1;
     }
+	public Transform2D(){
+		this.position=new Vector2D(0,0);
+		rotation=0;
+		scale=1;
+	}
 	public Transform2D(Vector2D position,float rotation, float scale){
 		this.position=position;
 		this.rotation=rotation;

@@ -200,6 +200,19 @@ public class Simulation {
 		}
 		return null;
 	}
+	public void setTrafficLightCycleLengthFromID(String id,String color){
+		trafficLight tl=getTrafficLightFromID(id);
+		if(tl!=null){
+			tl.setTrafficLight(color);
+		}
+	}
+	public String getTrafficLightCycleLengthFromID(String id){
+		trafficLight tl=getTrafficLightFromID(id);
+		if(tl!=null){
+			return tl.getTrafficLight();
+		}
+		return null;
+	}
 	public String getTrafficLightColorFromID(String id){
 		trafficLight t=getTrafficLightFromID(id);
 		if(t!=null){
