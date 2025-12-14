@@ -92,7 +92,7 @@
                                               <Font name="System Bold" size="12.0" />
                                            </font>
                                         </Label>
-                                        <Button fx:id="buttonLIghtDuration" layoutX="195.0" layoutY="34.0" mnemonicParsing="false" text="Change" onAction="#setLightDurationBtn"/>
+                                        <Button fx:id="buttonLIghtDuration" layoutX="195.0" layoutY="34.0" mnemonicParsing="false" onAction="#setLightDurationBtn" text="Change" />
                                         <TextField fx:id="textFieldLightDuration" layoutX="14.0" layoutY="34.0" />
                                      </children>
                                   </Pane>
@@ -103,23 +103,24 @@
                       </Tab>
                   </tabs>
                 </TabPane>
-                <Pane layoutX="12.0" layoutY="310.0" prefHeight="163.0" prefWidth="299.0" style="-fx-background-color: AAAAAA;">
+                <Pane layoutX="12.0" layoutY="310.0" prefHeight="132.0" prefWidth="299.0" style="-fx-background-color: AAAAAA;">
                    <children>
                       <Label layoutX="90.0" layoutY="3.0" text="Statistics &amp; Analytics">
                          <font>
                             <Font name="System Bold" size="12.0" />
                          </font></Label>
-                      <Button fx:id="buttonExport" layoutX="100.0" layoutY="134.0" mnemonicParsing="false" text="Export Statistics" />
-                      <Label layoutX="14.0" layoutY="31.0" text="Average Speed:" />
-                      <Label layoutX="14.0" layoutY="60.0" text="Vehicle Destiny per Edge:" />
-                      <Label layoutX="14.0" layoutY="84.0" text="Congestion hotspots:" />
-                      <Label layoutX="14.0" layoutY="112.0" text="Travel time destiribution:" />
-                      <Label fx:id="labelAvgSpeed" layoutX="182.0" layoutY="31.0" text="value1" />
-                      <Label fx:id="labelVehicleDesiny" layoutX="182.0" layoutY="60.0" text="value2" />
-                      <Label fx:id="labelCongHotspots" layoutX="185.0" layoutY="84.0" text="value3" />
-                      <Label fx:id="labelTravelTIme" layoutX="185.0" layoutY="112.0" text="value 4" />
+                      <Button fx:id="buttonExport" layoutX="100.0" layoutY="96.0" mnemonicParsing="false" text="Export Statistics" />
+                      <Label layoutX="14.0" layoutY="20.0" text="Average Speed:" />
+                      <Label layoutX="14.0" layoutY="40.0" text="Vehicle Destiny per Edge:" />
+                      <Label layoutX="14.0" layoutY="59.0" text="Congestion hotspots:" />
+                      <Label layoutX="15.0" layoutY="79.0" text="Travel time destiribution:" />
+                      <Label fx:id="labelAvgSpeed" layoutX="182.0" layoutY="20.0" text="value1" />
+                      <Label fx:id="labelVehicleDesiny" layoutX="182.0" layoutY="42.0" text="value2" />
+                      <Label fx:id="labelCongHotspots" layoutX="181.0" layoutY="59.0" text="value3" />
+                      <Label fx:id="labelTravelTIme" layoutX="180.0" layoutY="79.0" text="value 4" />
                    </children>
                 </Pane>
+               <Button fx:id="buttonStartStopSimulation" layoutX="97.0" layoutY="451.0" mnemonicParsing="false" text="Start/Stop Simulation" />
              </children></AnchorPane>
       </items>
     </SplitPane>
