@@ -10,7 +10,7 @@
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="431.0">
              <children>
-                <Canvas height="486.0" layoutX="-2.0" width="377.0" />
+                <Canvas fx:id="canvasMap" height="486.0" layoutX="-2.0" width="377.0" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
              </children></AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="497.0" prefWidth="359.0">
              <children>

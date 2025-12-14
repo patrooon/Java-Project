@@ -2,11 +2,16 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Paint;
 
+import java.awt.*;
 import java.util.Arrays;
 
 public class GuiController {
@@ -63,6 +68,8 @@ public class GuiController {
     @FXML
     private Button buttonStartStopSimulation;
 
+    @FXML
+    private Canvas canvasMap;
 
     //Simulation
     private Simulation sim;
@@ -107,6 +114,11 @@ public class GuiController {
 
     public void togglePause(){
         sim.togglePause();
+    }
+
+    public void printMap(){
+        GraphicsContext gc = canvasMap.getGraphicsContext2D();
+        //Build Map here
     }
 
     @FXML
