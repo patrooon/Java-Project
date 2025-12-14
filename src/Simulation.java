@@ -7,6 +7,7 @@ public class Simulation {
 	private route[] routes;
 	private trafficLight[] trafficLights;
     private Statistics stats;
+    public boolean paused=false;
 	Simulation(){
 		cars=new Car[0];
 		trafficLights=new trafficLight[0];
@@ -216,5 +217,9 @@ public class Simulation {
         }
         stats.update();
 	}
+
+    public void togglePause(){
+        paused=!paused;
+    }
 }
 

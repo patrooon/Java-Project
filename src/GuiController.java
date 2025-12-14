@@ -60,6 +60,8 @@ public class GuiController {
     private Button buttonLightDuration;
     @FXML
     private TextField textFieldLightDuration;
+    @FXML
+    private Button buttonStartStopSimulation;
 
 
     //Simulation
@@ -101,6 +103,10 @@ public class GuiController {
         Float dur = Float.valueOf(textFieldLightDuration.getText());
         sim.setTrafficLightCycleLengthFromID(curTrafficLight, dur);
         labelDurationRed.setText(sim.getTrafficLightCycleLengthFromID(curTrafficLight));
+    }
+
+    public void togglePause(){
+        sim.togglePause();
     }
 
     @FXML

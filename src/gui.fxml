@@ -70,7 +70,7 @@
                             </AnchorPane>
                       </content>
                     </Tab>
-                      <Tab text="Traffic LIght">
+                      <Tab text="Traffic Light">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                <children>
@@ -120,7 +120,7 @@
                       <Label fx:id="labelTravelTIme" layoutX="180.0" layoutY="79.0" text="value 4" />
                    </children>
                 </Pane>
-               <Button fx:id="buttonStartStopSimulation" layoutX="97.0" layoutY="451.0" mnemonicParsing="false" text="Start/Stop Simulation" />
+               <Button fx:id="buttonStartStopSimulation" layoutX="97.0" layoutY="451.0" mnemonicParsing="false" onAction="#togglePause" text="Start/Stop Simulation" />
              </children></AnchorPane>
       </items>
     </SplitPane>

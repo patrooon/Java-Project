@@ -36,7 +36,9 @@ public class GuiMain extends Application {
             //sim.printTrafficLights();
         }
         while(true){
-            sim.step();
+            if(!sim.paused){
+                sim.step();
+            }
             Platform.runLater(controller::comboBoxFill);
             Platform.runLater(controller::currentCar);
             Platform.runLater(controller::readLight);
