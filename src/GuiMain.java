@@ -28,7 +28,7 @@ public class GuiMain extends Application {
     public void roadsim(Simulation sim, GuiController controller){
         trafficLight tl = new trafficLight("clusterJ6_J7_J8");
         sim.start("SumoConfig/hello.sumocfg", 100);
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 40; i++) {
             Car car = new Car();
             sim.addCar(car, "route0");
             sim.step();
@@ -38,6 +38,7 @@ public class GuiMain extends Application {
         while(true){
             sim.step();
             Platform.runLater(controller::comboBoxFill);
+            Platform.runLater(controller::currentCar);
         }
     }
 }

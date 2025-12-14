@@ -86,12 +86,24 @@ public class GuiController {
     }
 
     public void newCar(){
-        Car car = new Car();
-        sim.addCar(car, comboBoxRoutes.getValue());
+        sim.createNewCar("0", textFieldStartSpeed.getText(), comboBoxColors.getValue(), comboBoxRoutes.getValue());
+    }
+
+    public void currentCar(){
+        String curCar = comboBoxSelectVehicle.getValue();
+        labelVehicleColor.setText(sim.getCarsColorFromID(curCar));
+        labelVehicleSpeed.setText(sim.getCarsSpeedFromID(curCar));
+        labelVehicleRoute.setText(sim.getCarsRouteFromID(curCar));
+    }
+
+    public void readLight(){
+        labelCurrentLightPhase.setText("");
+        /// Add possibility to read traffic lights for gui
     }
 
     @FXML
     public void initialize(){
         comboBoxColors.setItems(FXCollections.observableArrayList("black", "white"));
+
     }
 }
