@@ -2,6 +2,8 @@ import org.eclipse.sumo.libtraci.TraCIPosition;
 import org.eclipse.sumo.libtraci.Vehicle;
 
 public class Car {
+
+	// attributes: ID, speed, transform
 	private static int currentID=0;
 	private final String id;
 	private double speed;
@@ -13,7 +15,7 @@ public class Car {
     public Vector2D getPosition(){
         return this.transform.getPosition();
     }
-
+	// Constructors
 	public Car() {
 		this.id = "Veh"+currentID;
 		currentID++;
@@ -27,6 +29,9 @@ public class Car {
 		currentID++;
 		transform=new Transform2D();
 	}
+	// functions
+
+	//updates data each step
 	public void update(){
 		if(!Vehicle.getIDList().contains(id)){
 			System.out.println("cant find vehicle id");
@@ -66,10 +71,11 @@ public class Car {
 	public String toString() {
 		return "Car with ID: "+id;
 	}
-
+	// Get car ID
 	public String getId() {
 		return this.id;
 	}
+	// Get car transform
 	public Transform2D getTransform(){
 		return transform;
 	}

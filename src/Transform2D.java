@@ -17,8 +17,9 @@ public class Transform2D {
     public void setPosition(Vector2D pos){
         this.position=pos;
     }
-    public void rotate(float diff){
+    public void rotate(float diff){// Rotate by a difference
         rotation+=diff;
+		// Keep rotation between 0 and 2*Pi
         if (rotation>=3.14159*2){
             rotation-=3.14159*2;
         }
@@ -26,6 +27,9 @@ public class Transform2D {
             rotation+=3.14159*2;
         }
     }
+	// Constructors
+
+	// Constructor: position, default rotation=0, scale=1
     public Transform2D(Vector2D position){
         this.position=position;
         rotation=0;
@@ -36,6 +40,7 @@ public class Transform2D {
 		rotation=0;
 		scale=1;
 	}
+	// Constructor:  position, rotation, scale
 	public Transform2D(Vector2D position,float rotation, float scale){
 		this.position=position;
 		this.rotation=rotation;

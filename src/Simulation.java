@@ -130,13 +130,15 @@ public class Simulation {
 		for (String id:keyList){
 			if (!idList.contains(id)){
 				cars.remove(id);
-				System.out.println("");
+				System.out.println("removed car from simulation"+id);
 			}
 		}
 		for (String id:idList){
 			if (!cars.containsKey(id)){
 				Car c=new Car();
 				cars.put(c.getId(),c);
+				System.out.println("added new car to the simulation "+ id);
+
 			}
 		}
 	}
