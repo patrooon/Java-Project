@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GuiController">
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="GuiController">
     <SplitPane dividerPositions="0.5396205357142857" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="431.0">
@@ -24,11 +33,11 @@
                                   <Label layoutX="29.0" layoutY="70.0" text="Starting Speed:" />
                                   <Label layoutX="29.0" layoutY="109.0" text="Vehicle color:" />
                                   <Label layoutX="29.0" layoutY="153.0" text="Route:" />
-                                  <Button fx:id="buttonAddToSim" layoutX="105.0" layoutY="215.0" mnemonicParsing="false" text="Add to Simulation" onAction="#newCar" />
+                                  <Button layoutX="105.0" layoutY="215.0" mnemonicParsing="false" text="Add to Simulation" />
                                   <ComboBox fx:id="comboBoxEdges" layoutX="137.0" layoutY="26.0" prefWidth="150.0" promptText="Select..." />
                                   <ComboBox fx:id="comboBoxColors" layoutX="137.0" layoutY="105.0" prefWidth="150.0" promptText="Select..." />
                                   <ComboBox fx:id="comboBoxRoutes" layoutX="137.0" layoutY="149.0" prefWidth="150.0" promptText="Select..." />
-                                  <TextField fx:id="textFieldStartSpeed" layoutX="137.0" layoutY="66.0" promptText="Enter..." />
+                                  <TextField layoutX="137.0" layoutY="66.0" promptText="Enter..." />
                                </children>
                             </AnchorPane>
                       </content>
@@ -42,12 +51,13 @@
                                         <Label layoutX="14.0" layoutY="6.0" text="Color of Vehicle:" />
                                         <Label layoutX="14.0" layoutY="28.0" text="Current Speed:" />
                                         <Label layoutX="14.0" layoutY="49.0" text="Current Route:" />
-                                        <Label fx:id="labelVehicleColor" layoutX="145.0" layoutY="6.0" text="Label" />
-                                        <Label fx:id="labelVehicleSpeed" layoutX="145.0" layoutY="27.0" text="Label" />
-                                        <Label fx:id="labelVehicleRoute" layoutX="145.0" layoutY="49.0" text="Label" />
+                                        <Label layoutX="145.0" layoutY="6.0" text="Label" />
+                                        <Label layoutX="145.0" layoutY="27.0" text="Label" />
+                                        <Label layoutX="145.0" layoutY="49.0" text="Label" />
                                      </children>
                                   </Pane>
                                   <Label layoutX="23.0" layoutY="13.0" text="Select vehicle:" />
+                                  <ChoiceBox layoutX="139.0" layoutY="9.0" prefWidth="150.0" />
                                   <Pane layoutX="16.0" layoutY="125.0" prefHeight="120.0" prefWidth="289.0" style="-fx-background-color: AAAAAA;">
                                      <children>
                                         <Label layoutX="14.0" layoutY="6.0" text="Set new attributes:">
@@ -57,15 +67,14 @@
                                         <Label layoutX="16.0" layoutY="29.0" text="Color:" />
                                         <Label layoutX="14.0" layoutY="61.0" text="Speed:" />
                                         <Label layoutX="15.0" layoutY="93.0" text="Route:" />
-                                        <Button fx:id="buttonChangeColor" layoutX="225.0" layoutY="25.0" mnemonicParsing="false" text="Change" />
-                                        <Button fx:id="buttonChangeSpeed" layoutX="225.0" layoutY="57.0" mnemonicParsing="false" text="Change" />
-                                        <Button fx:id="buttonChangeRoute" layoutX="225.0" layoutY="89.0" mnemonicParsing="false" text="Change" />
-                                       <ComboBox fx:id="comboBoxSetColor" layoutX="67.0" layoutY="25.0" prefWidth="150.0" />
-                                       <ComboBox fx:id="comboBoxChangeRoute" layoutX="67.0" layoutY="89.0" prefWidth="150.0" />
-                                       <TextField fx:id="textFieldChangeSpeed" layoutX="68.0" layoutY="57.0" />
+                                        <ChoiceBox layoutX="82.0" layoutY="25.0" prefHeight="25.0" prefWidth="131.0" />
+                                        <ChoiceBox layoutX="82.0" layoutY="57.0" prefHeight="25.0" prefWidth="131.0" />
+                                        <ChoiceBox layoutX="82.0" layoutY="89.0" prefHeight="25.0" prefWidth="131.0" />
+                                        <Button layoutX="225.0" layoutY="25.0" mnemonicParsing="false" text="Change" />
+                                        <Button layoutX="225.0" layoutY="57.0" mnemonicParsing="false" text="Change" />
+                                        <Button layoutX="225.0" layoutY="89.0" mnemonicParsing="false" text="Change" />
                                      </children>
                                   </Pane>
-                                 <ComboBox fx:id="comboBoxSelectVehicle" layoutX="139.0" layoutY="9.0" prefWidth="150.0" />
                                </children>
                             </AnchorPane>
                       </content>
@@ -79,31 +88,31 @@
                                         <Label layoutX="14.0" layoutY="6.0" text="Current phase:" />
                                         <Label layoutX="14.0" layoutY="28.0" text="Next phase in:" />
                                         <Label layoutX="14.0" layoutY="49.0" text="Duration red light:" />
-                                        <Label fx:id="labelCurrentLightPhase" layoutX="145.0" layoutY="6.0" text="Label" />
-                                        <Label fx:id="labelNextLightPhase" layoutX="145.0" layoutY="27.0" text="Label" />
-                                        <Label fx:id="labelDurationRed" layoutX="145.0" layoutY="49.0" text="Label" />
+                                        <Label layoutX="145.0" layoutY="6.0" text="Label" />
+                                        <Label layoutX="145.0" layoutY="27.0" text="Label" />
+                                        <Label layoutX="145.0" layoutY="49.0" text="Label" />
                                         <Label layoutX="13.0" layoutY="69.0" text="Duration green light" />
-                                        <Label fx:id="labelDurationGreen" layoutX="144.0" layoutY="69.0" text="Label" />
+                                        <Label layoutX="144.0" layoutY="69.0" text="Label" />
                                      </children>
                                   </Pane>
                                   <Label layoutX="25.0" layoutY="17.0" text="Select light:" />
+                                  <ChoiceBox layoutX="130.0" layoutY="14.0" prefWidth="150.0" />
                                   <Pane layoutX="16.0" layoutY="175.0" prefHeight="92.0" prefWidth="289.0" style="-fx-background-color: AAAAAA;">
                                      <children>
-                                        <Label layoutX="14.0" layoutY="6.0" text="Set new light durations:">
+                                        <Label layoutX="14.0" layoutY="6.0" text="Set new attributes:">
                                            <font>
                                               <Font name="System Bold" size="12.0" />
                                            </font>
                                         </Label>
-                                        <Label layoutX="16.0" layoutY="29.0" text="Red:" />
-                                        <Label layoutX="14.0" layoutY="61.0" text="Green:" />
-                                        <Button fx:id="buttonRedDuration" layoutX="225.0" layoutY="25.0" mnemonicParsing="false" text="Change" />
-                                        <Button fx:id="buttonGreenDuration" layoutX="225.0" layoutY="57.0" mnemonicParsing="false" text="Change" />
-                                        <TextField fx:id="textFieldRedDuration" layoutX="70.0" layoutY="25.0" />
-                                        <TextField fx:id="textFieldGreenDuration" layoutX="70.0" layoutY="57.0" />
+                                        <Label layoutX="16.0" layoutY="29.0" text="Color:" />
+                                        <Label layoutX="14.0" layoutY="61.0" text="Speed:" />
+                                        <Button layoutX="225.0" layoutY="25.0" mnemonicParsing="false" text="Change" />
+                                        <Button layoutX="225.0" layoutY="57.0" mnemonicParsing="false" text="Change" />
+                                        <TextField layoutX="70.0" layoutY="25.0" />
+                                        <TextField layoutX="70.0" layoutY="57.0" />
                                      </children>
                                   </Pane>
-                                  <Button fx:id="buttonChangePhase" layoutX="102.0" layoutY="144.0" mnemonicParsing="false" text="Change phase now" />
-                                 <ComboBox fx:id="comboBoxSelectLight" layoutX="123.0" layoutY="13.0" prefWidth="150.0" />
+                                  <Button layoutX="102.0" layoutY="144.0" mnemonicParsing="false" text="Change phase now" />
                                </children></AnchorPane>
                         </content>
                       </Tab>
@@ -115,15 +124,15 @@
                          <font>
                             <Font name="System Bold" size="12.0" />
                          </font></Label>
-                      <Button fx:id="buttonExport" layoutX="100.0" layoutY="134.0" mnemonicParsing="false" text="Export Statistics" />
+                      <Button layoutX="100.0" layoutY="134.0" mnemonicParsing="false" text="Export Statistics" />
                       <Label layoutX="14.0" layoutY="31.0" text="Average Speed:" />
                       <Label layoutX="14.0" layoutY="60.0" text="Vehicle Destiny per Edge:" />
                       <Label layoutX="14.0" layoutY="84.0" text="Congestion hotspots:" />
                       <Label layoutX="14.0" layoutY="112.0" text="Travel time destiribution:" />
-                      <Label fx:id="labelAvgSpeed" layoutX="182.0" layoutY="31.0" text="value1" />
-                      <Label fx:id="labelVehicleDesiny" layoutX="182.0" layoutY="60.0" text="value2" />
-                      <Label fx:id="labelCongHotspots" layoutX="185.0" layoutY="84.0" text="value3" />
-                      <Label fx:id="labelTravelTIme" layoutX="185.0" layoutY="112.0" text="value 4" />
+                      <Label layoutX="182.0" layoutY="31.0" text="value1" />
+                      <Label layoutX="182.0" layoutY="60.0" text="value2" />
+                      <Label layoutX="185.0" layoutY="84.0" text="value3" />
+                      <Label layoutX="185.0" layoutY="112.0" text="value 4" />
                    </children>
                 </Pane>
              </children></AnchorPane>
