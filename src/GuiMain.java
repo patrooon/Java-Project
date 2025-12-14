@@ -1,24 +1,32 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class GuiMain extends Application {
+
+    private Simulation sim;
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GuiMain.class.getResource("gui.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 708, 486);
+        Parent root = fxmlLoader.load();
+        GuiController controller = fxmlLoader.getController();
+        sim = new Simulation();
+        controller.setSimulation(sim);
+        Scene scene = new Scene(root, 708, 486);
         stage.setTitle("Simulation");
         stage.setScene(scene);
         stage.show();
-        new Thread(this::roadsim, "RoadSim-Thread").start();
+        new Thread(() -> roadsim(sim, controller), "RoadSim-Thread").start();
     }
 
-    public void roadsim(){
+    public void roadsim(Simulation sim, GuiController controller){
         trafficLight tl = new trafficLight("clusterJ6_J7_J8");
-        Simulation sim=new Simulation();
         sim.start("SumoConfig/hello.sumocfg", 100);
         for (int i = 0; i < 15; i++) {
             Car car = new Car();
@@ -29,6 +37,7 @@ public class GuiMain extends Application {
         }
         while(true){
             sim.step();
+            Platform.runLater(controller::comboBoxFill);
         }
     }
 }
