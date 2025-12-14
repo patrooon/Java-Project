@@ -17,16 +17,24 @@ public class Car {
 	public Car() {
 		this.id = "Veh"+currentID;
 		currentID++;
+		transform= new Transform2D();
 	}
 	public Car(String id){
-        if (!id.equals("Veh"+String.valueOf(currentID))){
-            System.out.println("vehicle initialized with invalid ID");
-        }
+        //if (!id.equals("Veh"+String.valueOf(currentID))){
+        //    System.out.println("vehicle initialized with invalid ID");
+        //}
 		this.id=id;
 		currentID++;
+		transform=new Transform2D();
 	}
 	public void update(){
-		setSpeed(Vehicle.getSpeed(id));
+		if(!Vehicle.getIDList().contains(id)){
+			System.out.println("cant find vehicle id");
+			System.out.println(id);
+			return;
+		}
+		System.out.println("id found");
+		//setSpeed(Vehicle.getSpeed(id));
         //TODO look into tracipos and how to directly use it for rendering, rather than casting to vector2
         TraCIPosition tracipos=Vehicle.getPosition(id);
         transform.setPosition(new Vector2D((float) tracipos.getX(), (float) tracipos.getY()));//all this does is overwrite the position in transform with the one in sumo

@@ -15,6 +15,9 @@ public class gui_test {
             //sim.printTrafficLights();
 		}
 		while(true){
+			if(sim.paused){
+				return;
+			}
 			sim.step();
 		}
 	}

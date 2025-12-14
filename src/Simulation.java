@@ -1,27 +1,26 @@
 import org.eclipse.sumo.libtraci.*;
 import org.eclipse.sumo.libtraci.Route;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 public class Simulation {
 	//contains the objects within the current simulation
-	private Car[] cars;
+	private HashMap<String,Car> cars;
 	private route[] routes;
+	public boolean paused=false;
 	private trafficLight[] trafficLights;
     private Statistics stats;
-    public boolean paused=false;
 	Simulation(){
-		cars=new Car[0];
+		cars=new HashMap<String,Car>();
 		trafficLights=new trafficLight[0];
         stats=new Statistics();
 	}
 	void addCar(Car c,String routeID){
 		//pretty inefficient, maybe use  a linked list instead. or  a dictionary
 		Vehicle.add(c.getId(),routeID,"Car");
-		Car[] g=new Car[cars.length+1];
-		for(int i=0;i< cars.length;i++){
-			g[i]=cars[i];
-		}
-		g[cars.length]=c;
-		cars=g;
+		cars.put(c.getId(),c);
 	}
 	void createNewCar(String edge,String initialSpeed,String color,String route){
 		Car c=new Car();
@@ -36,6 +35,9 @@ public class Simulation {
 			}
 		}
 		return null;
+	}
+	public void togglePause(){
+		paused=!paused;
 	}
 
 	String getCarsColorFromID(String carID){
@@ -64,9 +66,10 @@ public class Simulation {
 	}
 
 	public Car[] getCars() {
-		return cars;
+		return cars.values().toArray(new Car[0]);
 	}
-	// might be useful if we want to select cars from the map directly
+
+	//might be useful if we want to select cars from the map directly
 	public Car getClosestCarToPosition(Vector2D globalPosition){
 		float leastDist=-1;
 		Car closestCar=null;
@@ -87,8 +90,8 @@ public class Simulation {
 		org.eclipse.sumo.libtraci.Simulation.preloadLibraries();
 	}
 	public void printCars(){
-		for (int i=0;i<cars.length;i++){
-			System.out.println(cars[i]);
+		for (Car c: cars.values()){
+			System.out.println(c);
 		}
 	}
 	public void printTrafficLights(){
@@ -100,10 +103,10 @@ public class Simulation {
 	public void start(String cfg, int Delay) {
 		load();
 		org.eclipse.sumo.libtraci.Simulation.start(new StringVector(new String[] {"sumo-gui", "-c", cfg, "--start", "--delay", String.valueOf(Delay)}));
-		step();
+		org.eclipse.sumo.libtraci.Simulation.step();
 		trafficLights=getInitialTrafficLights();
 		cars=getInitialCars();
-		printTrafficLights();
+		//printTrafficLights();
 	}
 	public trafficLight[] getInitialTrafficLights(){
 		String[] tlIDs= TrafficLight.getIDList().toArray(new String[0]);
@@ -113,14 +116,32 @@ public class Simulation {
 		}
 		return lights;
 	}
-	public Car[] getInitialCars(){
+	public HashMap<String,Car> getInitialCars(){
 		String[] carIDs=Vehicle.getIDList().toArray(new String[0]);
-		Car[] cars=new Car[carIDs.length];
+		HashMap<String,Car> newmap= new HashMap<String,Car>();
 		for (int i=0;i< carIDs.length;i++){
-
-			cars[i]=new Car(carIDs[i]);
+			newmap.put(carIDs[i],new Car(carIDs[i]));
 		}
-		return cars;
+		return newmap;
+	}
+	public void updateCarMapping(){
+		StringVector idList=Vehicle.getIDList();
+		String[] keyList= cars.keySet().toArray(new String[0]);
+		for (String id:keyList){
+			if (!idList.contains(id)){
+				cars.remove(id);
+				System.out.println("");
+			}
+		}
+		for (String id:idList){
+			if (!cars.containsKey(id)){
+				Car c=new Car();
+				cars.put(c.getId(),c);
+			}
+		}
+	}
+	public void setTrafficLightWithID(String id,String color){
+		TrafficLight.setRedYellowGreenState(id,color);
 	}
 	public route[] getInitialRoutes(){
 		String[] routeIDs= Route.getIDList().toArray(new String[0]);
@@ -179,47 +200,37 @@ public class Simulation {
 		}
 		return null;
 	}
-
-    public String getTrafficLightColorFromID(String id){
-        trafficLight t =  getTrafficLightFromID(id);
-        if(t!=null){
-            return t.getTrafficLight();
-        }
-        return null;
-    }
-
-    public String getTrafficLightCycleLengthFromID(String id){
-        trafficLight t =  getTrafficLightFromID(id);
-        if(t!=null){
-            return String.valueOf(t.getCycleLength());
-        }
-        return null;
-    }
-
-    public String setTrafficLightCycleLengthFromID(String id, float duration){
-        trafficLight t =  getTrafficLightFromID(id);
-        if(t!=null){
-            t.setCycleLengthRed(duration);
-            return String.valueOf(t.getCycleLength());
-        }
-        return null;
-    }
+	public String getTrafficLightColorFromID(String id){
+		trafficLight t=getTrafficLightFromID(id);
+		if(t!=null){
+			return t.getTrafficLight();
+		}
+		return null;
+	}
 
 
 	public void step() {
         // called from the simulation thread once per tick
 		org.eclipse.sumo.libtraci.Simulation.step();
-		for (int i=0;i<cars.length;i++){
-			//cars[i].update();
+		updateCarMapping();
+		for (Car c:cars.values()){
+			c.update();
 		}
         for (int i=0;i<trafficLights.length;i++){
             trafficLights[i].update();
         }
         stats.update();
-	}
+		printCars();
 
-    public void togglePause(){
-        paused=!paused;
-    }
+	}
+	public void addNumberOfCarsToRoute(int n,String RouteID){
+		if (n<=0){
+			return;
+		}
+		for (int i=0;i<n;i++){
+			createNewCar("","10","",RouteID);
+			}
+		}
+
 }
 

@@ -43,7 +43,6 @@ public class trafficLight {
 	public String getTrafficLight() {
 		return TrafficLight.getRedYellowGreenState(id);
 	}
-
 	@Override
 	public String toString() {
 		return "Traffic light with id: "+id+" and light: "+ currentColor;
