@@ -9,13 +9,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
+import javax.swing.*;
+//import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.io.File;
 import java.util.Arrays;
 
 public class GuiController {
+	private Image carImage;
+	private Image trafficLightGrey;
+	private Image trafficLightGreen;
+	private Image trafficLightRed;
+	private Image trafficLightYellow;
     //Tab Create Vehicle
     @FXML
     private ComboBox<String> comboBoxEdges;
@@ -75,14 +84,26 @@ public class GuiController {
     private double roadW = 20;
     private double gap = 40;
     private double boxHalf = 35;
+	final double TEXTURERADIUS=8;
 
     //Simulation
     private Simulation sim;
-
+	private boolean isConfigStarted=false;
+	public void loadConfig(){
+		isConfigStarted=true;
+	}
     public void setSimulation(Simulation sim){
+		System.out.println("sim started");
         this.sim = sim;
         comboBoxFill();
     }
+	public void loadImagesFromDisk(){
+		carImage=new Image(new File("textures/car_icon.png").toURI().toString());//.getImage();
+		trafficLightYellow=new Image(new File("textures/yellow_light.png").toURI().toString());
+		trafficLightGreen=new Image(new File("textures/green_light.png").toURI().toString());
+		trafficLightRed=new Image(new File("textures/red_light.png").toURI().toString());
+		trafficLightGrey=new Image(new File("textures/grey_light.png").toURI().toString());
+	}
 
     public void comboBoxFill(){
         if (sim != null) {
@@ -126,20 +147,62 @@ public class GuiController {
         //Build Map here
     }
 
-    private void draw() {
+    public void draw() {
         GraphicsContext gc = canvasMap.getGraphicsContext2D();
         double w = canvasMap.getWidth();
         double h = canvasMap.getHeight();
 
-        double cx = w / 2;
-        double cy = h / 2;
+        double halfwidth = w / 2;
+        double halfheight = h / 2;
 
-        drawMapFX(gc, w, h, cx, cy);
+        drawMapFX(gc, w, h, halfwidth, halfheight);
     }
 
     private void drawMapFX(GraphicsContext gc, double w, double h,
-                           double cx, double cy) {
+                           double halfwidth, double halfheight) {
+		gc.setFill(Color.WHITE);
+		gc.fillRect(0, 0, w, h);
+		if (sim==null){
+			System.out.println("is null");
+			//gc.drawImage(carImage,300,200);
+			//System.out.println("is null");
+			return;
+		}
+		for (Lane lane:sim.getLanes()){
+			for(int i=0;i<lane.getLine().size()-1;i++){
+				gc.strokeLine(lane.getLine().get(i).x+halfwidth,-lane.getLine().get(i).y+halfheight,lane.getLine().get(i+1).x+halfwidth,-lane.getLine().get(i+1).y+halfheight);
+			}
+		}
+		System.out.println("not null");
 
+		//return;
+		// Static textures
+        /*
+        for (trafficLight tl:sim.getTrafficLights()){
+            if (tl.getTrafficLight().equals("")){
+                for(int i=0;i<tl.getStopLinePositions().size();i++){
+                    gc.drawImage(trafficLightGrey,tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfwidth,-tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfheight);
+                }
+            }
+            else{
+                for (int i=0;i<tl.getTrafficLight().length();i++){
+                    if (tl.getTrafficLight().charAt(i)=='G'){
+                        gc.drawImage(trafficLightGreen,tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfwidth,-tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfheight);
+                    }
+                    if (tl.getTrafficLight().charAt(i)=='y'){
+                        gc.drawImage(trafficLightYellow,tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfwidth,-tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfheight);
+                    }
+                    if (tl.getTrafficLight().charAt(i)=='r'){
+                        gc.drawImage(trafficLightRed,tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfwidth,-tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfheight);
+                    }
+                }
+            }
+        }
+        */
+		for (Car car : sim.getCars()) {
+			gc.drawImage(carImage,car.getPosition().x-TEXTURERADIUS+halfwidth,-car.getPosition().y-TEXTURERADIUS+halfheight);
+		}
+		/*
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, w, h);
 
@@ -149,25 +212,11 @@ public class GuiController {
         gc.setStroke(roadFill);
         gc.setLineWidth(roadW);
 
-        gc.strokeLine(20, cy - gap, w - 20, cy - gap);
-        gc.strokeLine(20, cy + gap, w - 20, cy + gap);
-        gc.strokeLine(cx - gap, 20, cx - gap, h - 20);
-        gc.strokeLine(cx + gap, 20, cx + gap, h - 20);
-
+        gc.strokeLine(20, halfheight - gap, w - 20, halfheight - gap);
         gc.setStroke(roadEdge);
         gc.setLineWidth(2);
+        */
 
-        gc.strokeLine(20, cy - gap, w - 20, cy - gap);
-        gc.strokeLine(20, cy + gap, w - 20, cy + gap);
-        gc.strokeLine(cx - gap, 20, cx - gap, h - 20);
-        gc.strokeLine(cx + gap, 20, cx + gap, h - 20);
-
-        gc.setFill(Color.rgb(210, 210, 210, 0.67));
-        gc.fillRect(cx - boxHalf, cy - boxHalf, boxHalf * 2, boxHalf * 2);
-
-        gc.setStroke(Color.rgb(120, 120, 120));
-        gc.setLineWidth(2);
-        gc.strokeRect(cx - boxHalf, cy - boxHalf, boxHalf * 2, boxHalf * 2);
     }
 
     @FXML

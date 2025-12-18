@@ -1,6 +1,8 @@
 public class Camera2D {
     private float zoom=1;
     public static Vector2D defaultFrameSize=new Vector2D(1920,1080);
+	private double halfwidth;
+	private double halfheight;
     private Vector2D position;//this is the center of the screen/camerar
     private float rotation;//flat rotation (rotation around the y-axis in 3d)
 
@@ -10,6 +12,12 @@ public class Camera2D {
 			return;
 		}
 		this.zoom = zoom;
+	}
+	Camera2D(float halfwidth,float halfheight){
+		this.halfheight=halfheight;
+		this.halfwidth=halfwidth;
+		zoom=1;
+		this.position=new Vector2D(0,0);
 	}
 
 	public Transform2D getLocalTransformFromGlobal(Transform2D global){

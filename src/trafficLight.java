@@ -1,8 +1,11 @@
 import org.eclipse.sumo.libtraci.TrafficLight;
 
+import java.util.ArrayList;
+
 public class trafficLight {
 	// Stores the current color of the traffic light
-	private String currentColor;
+	private String currentColor;//initially GrG
+	private ArrayList<Vector2D> stopLinePositions;
 	// Unique id of the traffic light
 	private final String id;
 	// Length of one light cycle
@@ -13,8 +16,18 @@ public class trafficLight {
 	// Creates a traffic light with id
 	public trafficLight(String id) {
 		this.id = id;
-		currentColor ="Red";
+		currentColor="";
 	}
+    public ArrayList<Vector2D> getStopLinePositions(){
+        return stopLinePositions;
+    }
+	public void setStopLinePositions(ArrayList<Vector2D> stopLinePositions) {
+		this.stopLinePositions = stopLinePositions;
+		for (Vector2D v:stopLinePositions){
+			System.out.println(v);
+		}
+	}
+
 	// Sends the current color to SUMO
 	public void setTrafficLight() {
 		TrafficLight.setRedYellowGreenState(id, currentColor);

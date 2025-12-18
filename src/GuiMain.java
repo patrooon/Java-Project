@@ -18,6 +18,7 @@ public class GuiMain extends Application {
         GuiController controller = fxmlLoader.getController();
         sim = new Simulation();
         controller.setSimulation(sim);
+		controller.loadImagesFromDisk();
         Scene scene = new Scene(root, 708, 486);
         stage.setTitle("Simulation");
         stage.setScene(scene);
@@ -26,21 +27,15 @@ public class GuiMain extends Application {
     }
 
     public void roadsim(Simulation sim, GuiController controller){
-        trafficLight tl = new trafficLight("clusterJ6_J7_J8");
         sim.start("SumoConfig/hello.sumocfg", 100);
-        for (int i = 0; i < 40; i++) {
-            Car car = new Car();
-            sim.addCar(car, "route0");
-            sim.step();
-            //sim.printCars();
-            //sim.printTrafficLights();
-        }
+		sim.step();
         while(true){
 			if(!sim.paused) {
 				sim.step();
 			}
             Platform.runLater(controller::comboBoxFill);
             Platform.runLater(controller::currentCar);
+			Platform.runLater(controller::draw);
         }
     }
 }

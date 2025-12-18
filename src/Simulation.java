@@ -1,24 +1,51 @@
 import org.eclipse.sumo.libtraci.*;
 import org.eclipse.sumo.libtraci.Route;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.io.File;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class Simulation {
+	final String defaultNetworkPath="SumoConfig/hello.net.xml";
+	private String activeNetworkPath="";
 	//contains the objects within the current simulation
 	private HashMap<String,Car> cars;
+	private ArrayList<Lane> lanes;
 	private route[] routes;
 	public boolean paused=false;
 	private trafficLight[] trafficLights;
     private Statistics stats;
+	private DynamicGraphics g;
+	//constructor
 	Simulation(){
 		cars=new HashMap<String,Car>();
 		trafficLights=new trafficLight[0];
         stats=new Statistics();
+		lanes=new ArrayList<Lane>();
+		g=new DynamicGraphics(null,null);
+		try {
+			loadNetwork("");
+		} catch (ParserConfigurationException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} catch (SAXException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	void addCar(Car c,String routeID){
-		//pretty inefficient, maybe use  a linked list instead. or  a dictionary
 		Vehicle.add(c.getId(),routeID,"Car");
 		cars.put(c.getId(),c);
 	}
@@ -56,15 +83,82 @@ public class Simulation {
 		return null;
 
 	}
+	//check what the exceptions are
+	void loadNetwork(String pathname) throws ParserConfigurationException, IOException, SAXException {
+		System.out.println("load_called");
+		File file;
+		if (pathname.isEmpty()) {
+			file=new File(defaultNetworkPath);
+		}
+		else{
+			file = new File(pathname);
+		}
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document document = db.parse(file);
+		document.getDocumentElement().normalize();
+		Element root = document.getDocumentElement();
+		NodeList tls=document.getElementsByTagName("tlLogic");
+		NodeList junctions=document.getElementsByTagName("junction");
+		NodeList edges = document.getElementsByTagName("edge");
+		NodeList lanes =document.getElementsByTagName("lane");
+		// horrible mess of code fix as soon as possible
+		for (int i=0;i<lanes.getLength();i++) {
+			Node l = lanes.item(i);
+			if (l.getNodeType() == Node.ELEMENT_NODE) {
+				Element laneElement = (Element) l;
+				this.lanes.add(new Lane(laneElement.getAttribute("id"), laneElement.getAttribute("shape")));
+			}
+		}
+		for (int i=0;i<tls.getLength();i++){
+			Node tl=tls.item(i);
+			if (tl.getNodeType()==Node.ELEMENT_NODE){
+				Element el=(Element)tl;
+				String id=el.getAttribute("id");
+				System.out.println(id);
+				trafficLight t=new trafficLight(id);
+				ArrayList<Vector2D> stopLines=new ArrayList<Vector2D>();
+				for(int j=0;j<junctions.getLength();j++){
+					Node junction= junctions.item(j);
+					if (junction.getNodeType()==Node.ELEMENT_NODE){
+						Element junctionElement=(Element)junction;
+						if (junctionElement.getAttribute("id").equals(id)){
+							String[] laneNames=junctionElement.getAttribute("intLanes").split(" ");
+							for(String s:laneNames) {
+								for(int k=0;k<edges.getLength();k++){
+									Node lane=lanes.item(k);
+									if (lane.getNodeType()==Node.ELEMENT_NODE) {
+										Element laneElement = (Element) lane;
+										if (laneElement.getAttribute("id").equals(s)){
+											String[] numbers= laneElement.getAttribute("shape").split("[ ,]+");
+											stopLines.add(new Vector2D(Float.parseFloat(numbers[0]),Float.parseFloat(numbers[1])));
+										}
+
+									}
+								}
+							}
+						}
+					}
+				}
+				t.setStopLinePositions(stopLines);
+			}
+			else{
+				System.out.println("not an element");
+			}
+		}
+
+	}
 	String getCarsRouteFromID(String carID){
 		Car c=getCarFromID(carID);
 		if (c!=null){
-			return String.valueOf(c.getSpeed());
+			return String.valueOf(c.getRoute());
 		}
 		return null;
 
 	}
-
+	public ArrayList<Lane> getLanes(){
+		return lanes;
+	}
 	public Car[] getCars() {
 		return cars.values().toArray(new Car[0]);
 	}
@@ -106,7 +200,6 @@ public class Simulation {
 		org.eclipse.sumo.libtraci.Simulation.step();
 		trafficLights=getInitialTrafficLights();
 		cars=getInitialCars();
-		//printTrafficLights();
 	}
 	public trafficLight[] getInitialTrafficLights(){
 		String[] tlIDs= TrafficLight.getIDList().toArray(new String[0]);
@@ -246,6 +339,9 @@ public class Simulation {
 			createNewCar("","10","",RouteID);
 			}
 		}
+        public void add100Cars(){
+            addNumberOfCarsToRoute(100,"Route0");
+        }
 
 }
 

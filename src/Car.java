@@ -62,7 +62,6 @@ public class Car {
 	}
 
 
-
 	public void setSpeed(double s) {
 		this.speed = s;
 	}

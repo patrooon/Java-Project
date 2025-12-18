@@ -33,4 +33,7 @@ public class Vector2D {
 		this.x=(float) (x * Math.cos(radians) - y * Math.sin(radians));
 		this.y=(float) (x * Math.sin(radians) + y * Math.cos(radians));
 	}
+	public String toString(){
+		return "Vector with x: "+String.valueOf(x)+"and y: "+String.valueOf(y);
+	}
 }

@@ -32,7 +32,8 @@ class TrafficSimPanel extends JPanel {
 
     private final Timer timer;
 
-    TrafficSimPanel() {
+    TrafficSimPanel()
+		{
         setBackground(Color.WHITE);
 
         // EXACTLY 10 cars
