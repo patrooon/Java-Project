@@ -23,6 +23,13 @@ public class Vector2D {
         y-=other.y;
         return this;
     }
+	//adds another vector to this vector
+	public Vector2D add(Vector2D other){
+		x+=other.x;
+		y+=other.y;
+		return this;
+	}
+
 	// Distance to another vector
 	public float distanceTo(Vector2D other){
 		return this.subtract(other).length();

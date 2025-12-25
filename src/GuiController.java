@@ -12,6 +12,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.scene.control.TextArea;
+import javafx.application.Platform;
+
+
 
 import javax.swing.*;
 //import java.awt.*;
@@ -20,6 +26,7 @@ import java.io.File;
 import java.util.Arrays;
 
 public class GuiController {
+	private GuiMain guiMain;
 	private Image carImage;
 	private Image trafficLightGrey;
 	private Image trafficLightGreen;
@@ -80,15 +87,35 @@ public class GuiController {
 
     @FXML
     private Canvas canvasMap;
+    
+    @FXML
+    private Button chooseFileButton;
+    
+    @FXML	
+    private Button activeFileButton;
+    
+    @FXML
+    private Button chooseNetButton;
+    
+
+
 
     private double roadW = 20;
     private double gap = 40;
     private double boxHalf = 35;
 	final double TEXTURERADIUS=8;
+	
+	private String selectedConfigPath;
+	private Runnable restartCallback;
+	public void setOnRestart(Runnable r) {
+		this.restartCallback = r;
+	}
 
     //Simulation
     private Simulation sim;
 	private boolean isConfigStarted=false;
+	
+	
 	public void loadConfig(){
 		isConfigStarted=true;
 	}
@@ -223,5 +250,54 @@ public class GuiController {
     public void initialize(){
         comboBoxColors.setItems(FXCollections.observableArrayList("black", "white"));
         draw();
+    }
+    
+    @FXML
+    private void handleChooseFile() {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = 
+                new FileChooser.ExtensionFilter("SUMO Config Dateien (*.sumocfg)", "*.sumocfg");
+            fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setTitle("Select Cfg");
+        File selectedFile = fileChooser.showOpenDialog(chooseFileButton.getScene().getWindow());
+        
+        if (selectedFile != null) {
+            selectedConfigPath = selectedFile.getAbsolutePath();
+          } else {
+        	System.out.println("That is Null");
+        }
+    }
+    
+    @FXML
+    private void handleChooseNet() {
+    	FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = 
+                new FileChooser.ExtensionFilter("Net Xml Dateien (*.net.xml)", "*.net.xml");
+            fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setTitle("Select Network");
+       File selectedNetFile = fileChooser.showOpenDialog(chooseNetButton.getScene().getWindow());
+       
+       if (selectedNetFile != null) {
+           sim.setCurrentNetFile(selectedNetFile.getAbsolutePath());
+         } else {
+       	System.out.println("No net,xml selected");
+       }
+    }
+    
+    
+    @FXML
+    private void handleActivedFile() {
+       if(selectedConfigPath == null) {
+    	   System.out.println("No Path selected");
+    	   return;
+       }
+       
+       System.out.println(selectedConfigPath);
+       sim.setSumocfgPath(selectedConfigPath);
+       
+       if(restartCallback != null) {
+    	   restartCallback.run();
+       }
+       
     }
 }

@@ -19,6 +19,12 @@ public class Camera2D {
 		zoom=1;
 		this.position=new Vector2D(0,0);
 	}
+	public void moveCameraByAmount(Vector2D relativePosition){
+		position.add(relativePosition);
+	}
+	public void moveCameraToPosition(Vector2D newPosition){
+		position=newPosition;
+	}
 
 	public Transform2D getLocalTransformFromGlobal(Transform2D global){
         //TODO verify that rotation and zoom work properly
