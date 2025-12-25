@@ -11,7 +11,8 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="431.0">
              <children>
                 <Canvas fx:id="canvasMap" height="486.0" layoutX="-2.0" width="377.0" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
-             </children></AnchorPane>
+             </children>
+        </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="497.0" prefWidth="359.0">
              <children>
                 <TabPane layoutX="-1.0" prefHeight="301.0" prefWidth="322.0" tabClosingPolicy="UNAVAILABLE">
@@ -70,7 +71,7 @@
                             </AnchorPane>
                       </content>
                     </Tab>
-                      <Tab text="Traffic Light">
+                    <Tab text="Traffic Light">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                <children>
@@ -98,9 +99,29 @@
                                   </Pane>
                                   <Button fx:id="buttonChangePhase" layoutX="102.0" layoutY="143.0" mnemonicParsing="false" text="Change phase now" />
                                  <ComboBox fx:id="comboBoxSelectLight" layoutX="123.0" layoutY="13.0" prefWidth="150.0" />
-                               </children></AnchorPane>
+                               </children>
+                               </AnchorPane>
                         </content>
                       </Tab>
+                      <Tab text="add Cfg">
+    						<content>
+      						  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+       						     <children>
+         						       
+           						         <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20">
+            								<Button text="Choose Cfg" fx:id="chooseFileButton" onAction="#handleChooseFile"/>
+            								<Button text="Choose Net" fx:id="chooseNetButton" onAction="#handleChooseNet"/>
+            								<Button text="Active cfg" fx:id="activeFileButton" onAction="#handleActivedFile"/>
+       									 </VBox>
+          						     
+         						   </children>
+      						  </AnchorPane>
+  						  </content>          
+					</Tab>
+
+                 
+
+
                   </tabs>
                 </TabPane>
                 <Pane layoutX="12.0" layoutY="310.0" prefHeight="132.0" prefWidth="299.0" style="-fx-background-color: AAAAAA;">
