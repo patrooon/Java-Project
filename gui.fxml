@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GuiController">
+    <SplitPane dividerPositions="0.5396205357142857" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+      <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="431.0">
+             <children>
+                <Canvas fx:id="canvasMap" height="486.0" layoutX="-2.0" width="377.0" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+             </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="497.0" prefWidth="359.0">
+             <children>
+                <TabPane layoutX="-1.0" prefHeight="301.0" prefWidth="322.0" tabClosingPolicy="UNAVAILABLE">
+                  <tabs>
+                    <Tab text="Create Vehicle">
+                      <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                               <children>
+                                  <Label layoutX="29.0" layoutY="30.0" text="Start on Edge:" />
+                                  <Label layoutX="29.0" layoutY="70.0" text="Starting Speed:" />
+                                  <Label layoutX="29.0" layoutY="109.0" text="Vehicle color:" />
+                                  <Label layoutX="29.0" layoutY="153.0" text="Route:" />
+                                  <Button fx:id="buttonAddToSim" layoutX="105.0" layoutY="215.0" mnemonicParsing="false" onAction="#newCar" text="Add to Simulation" />
+                                  <ComboBox fx:id="comboBoxEdges" layoutX="137.0" layoutY="26.0" prefWidth="150.0" promptText="Select..." />
+                                  <ComboBox fx:id="comboBoxColors" layoutX="137.0" layoutY="105.0" prefWidth="150.0" promptText="Select..." />
+                                  <ComboBox fx:id="comboBoxRoutes" layoutX="137.0" layoutY="149.0" prefWidth="150.0" promptText="Select..." />
+                                  <TextField fx:id="textFieldStartSpeed" layoutX="137.0" layoutY="66.0" promptText="Enter..." />
+                               </children>
+                            </AnchorPane>
+                      </content>
+                    </Tab>
+                    <Tab text="Edit Vehicle">
+                      <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="206.0" prefWidth="322.0">
+                               <children>
+                                  <Pane layoutX="17.0" layoutY="45.0" prefHeight="71.0" prefWidth="290.0" style="-fx-background-color: AAAAAA;">
+                                     <children>
+                                        <Label layoutX="14.0" layoutY="6.0" text="Color of Vehicle:" />
+                                        <Label layoutX="14.0" layoutY="28.0" text="Current Speed:" />
+                                        <Label layoutX="14.0" layoutY="49.0" text="Current Route:" />
+                                        <Label fx:id="labelVehicleColor" layoutX="145.0" layoutY="6.0" text="Label" />
+                                        <Label fx:id="labelVehicleSpeed" layoutX="145.0" layoutY="27.0" text="Label" />
+                                        <Label fx:id="labelVehicleRoute" layoutX="145.0" layoutY="49.0" text="Label" />
+                                     </children>
+                                  </Pane>
+                                  <Label layoutX="23.0" layoutY="13.0" text="Select vehicle:" />
+                                  <Pane layoutX="16.0" layoutY="125.0" prefHeight="120.0" prefWidth="289.0" style="-fx-background-color: AAAAAA;">
+                                     <children>
+                                        <Label layoutX="14.0" layoutY="6.0" text="Set new attributes:">
+                                           <font>
+                                              <Font name="System Bold" size="12.0" />
+                                           </font></Label>
+                                        <Label layoutX="16.0" layoutY="29.0" text="Color:" />
+                                        <Label layoutX="14.0" layoutY="61.0" text="Speed:" />
+                                        <Label layoutX="15.0" layoutY="93.0" text="Route:" />
+                                        <Button fx:id="buttonChangeColor" layoutX="225.0" layoutY="25.0" mnemonicParsing="false" text="Change" />
+                                        <Button fx:id="buttonChangeSpeed" layoutX="225.0" layoutY="57.0" mnemonicParsing="false" text="Change" />
+                                        <Button fx:id="buttonChangeRoute" layoutX="225.0" layoutY="89.0" mnemonicParsing="false" text="Change" />
+                                       <ComboBox fx:id="comboBoxSetColor" layoutX="67.0" layoutY="25.0" prefWidth="150.0" />
+                                       <ComboBox fx:id="comboBoxChangeRoute" layoutX="67.0" layoutY="89.0" prefWidth="150.0" />
+                                       <TextField fx:id="textFieldChangeSpeed" layoutX="68.0" layoutY="57.0" />
+                                     </children>
+                                  </Pane>
+                                 <ComboBox fx:id="comboBoxSelectVehicle" layoutX="139.0" layoutY="9.0" prefWidth="150.0" />
+                               </children>
+                            </AnchorPane>
+                      </content>
+                    </Tab>
+                    <Tab text="Traffic Light">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                               <children>
+                                  <Pane layoutX="16.0" layoutY="47.0" prefHeight="82.0" prefWidth="290.0" style="-fx-background-color: AAAAAA;">
+                                     <children>
+                                        <Label layoutX="14.0" layoutY="6.0" text="Current phase:" />
+                                        <Label layoutX="14.0" layoutY="32.0" text="Next phase in:" />
+                                        <Label layoutX="14.0" layoutY="56.0" text="Duration light:" />
+                                        <Label fx:id="labelCurrentLightPhase" layoutX="145.0" layoutY="6.0" text="Label" />
+                                        <Label fx:id="labelNextLightPhase" layoutX="145.0" layoutY="32.0" text="Label" />
+                                        <Label fx:id="labelDurationRed" layoutX="145.0" layoutY="56.0" text="Label" />
+                                     </children>
+                                  </Pane>
+                                  <Label layoutX="25.0" layoutY="17.0" text="Select light:" />
+                                  <Pane layoutX="16.0" layoutY="186.0" prefHeight="72.0" prefWidth="289.0" style="-fx-background-color: AAAAAA;">
+                                     <children>
+                                        <Label layoutX="14.0" layoutY="6.0" text="Set new light duration:">
+                                           <font>
+                                              <Font name="System Bold" size="12.0" />
+                                           </font>
+                                        </Label>
+                                        <Button fx:id="buttonLIghtDuration" layoutX="195.0" layoutY="34.0" mnemonicParsing="false" onAction="#setLightDurationBtn" text="Change" />
+                                        <TextField fx:id="textFieldLightDuration" layoutX="14.0" layoutY="34.0" />
+                                     </children>
+                                  </Pane>
+                                  <Button fx:id="buttonChangePhase" layoutX="102.0" layoutY="143.0" mnemonicParsing="false" text="Change phase now" />
+                                 <ComboBox fx:id="comboBoxSelectLight" layoutX="123.0" layoutY="13.0" prefWidth="150.0" />
+                               </children>
+                               </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="add Cfg">
+    						<content>
+      						  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+       						     <children>
+         						       
+           						         <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20">
+            								<Button text="Choose Cfg" fx:id="chooseFileButton" onAction="#handleChooseFile"/>
+            								<Button text="Choose Net" fx:id="chooseNetButton" onAction="#handleChooseNet"/>
+            								<Button text="Active cfg" fx:id="activeFileButton" onAction="#handleActivedFile"/>
+       									 </VBox>
+          						     
+         						   </children>
+      						  </AnchorPane>
+  						  </content>          
+					</Tab>
+
+                 
+
+
+                  </tabs>
+                </TabPane>
+                <Pane layoutX="12.0" layoutY="310.0" prefHeight="132.0" prefWidth="299.0" style="-fx-background-color: AAAAAA;">
+                   <children>
+                      <Label layoutX="90.0" layoutY="3.0" text="Statistics &amp; Analytics">
+                         <font>
+                            <Font name="System Bold" size="12.0" />
+                         </font></Label>
+                      <Button fx:id="buttonExport" layoutX="100.0" layoutY="96.0" mnemonicParsing="false" text="Export Statistics" />
+                      <Label layoutX="14.0" layoutY="20.0" text="Average Speed:" />
+                      <Label layoutX="14.0" layoutY="40.0" text="Vehicle Destiny per Edge:" />
+                      <Label layoutX="14.0" layoutY="59.0" text="Congestion hotspots:" />
+                      <Label layoutX="15.0" layoutY="79.0" text="Travel time destiribution:" />
+                      <Label fx:id="labelAvgSpeed" layoutX="182.0" layoutY="20.0" text="value1" />
+                      <Label fx:id="labelVehicleDesiny" layoutX="182.0" layoutY="42.0" text="value2" />
+                      <Label fx:id="labelCongHotspots" layoutX="181.0" layoutY="59.0" text="value3" />
+                      <Label fx:id="labelTravelTIme" layoutX="180.0" layoutY="79.0" text="value 4" />
+                   </children>
+                </Pane>
+               <Button fx:id="buttonStartStopSimulation" layoutX="97.0" layoutY="451.0" mnemonicParsing="false" onAction="#togglePause" text="Start/Stop Simulation" />
+             </children></AnchorPane>
+      </items>
+    </SplitPane>
+</VBox>
