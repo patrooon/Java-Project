@@ -35,7 +35,7 @@ public class Simulation {
 	Simulation(){
 		cars=new HashMap<String,Car>();
 		trafficLights=new trafficLight[0];
-        stats=new Statistics();
+        stats=new Statistics(this);
 		lanes=new ArrayList<Lane>();
 		g=new DynamicGraphics(null,null);
 		try {
@@ -67,7 +67,7 @@ public class Simulation {
 		return null;
 	}
 	public void togglePause(){
-		paused=!paused;		
+		paused=!paused;
 	}
 
 	String getCarsColorFromID(String carID){
@@ -335,31 +335,31 @@ public class Simulation {
 		printCars();
 
 	}
-	
+
 	public void setSumocfgPath(String path) {
 		this.sumocfgPath = path;
 	}
 	public String getSumocfgPath() {
 		return sumocfgPath;
 	}
-	
+
 	public void stopSimulation() {
 		running = false;
 		try {
 			org.eclipse.sumo.libtraci.Simulation.close();
 		}catch (Exception ignored) {}
 	}
-	
+
 	public boolean isRunning() {
 		return running;
 	}
-	
+
 	public void startSimulation(int delay) {
 		running = true;
 		load();
 		org.eclipse.sumo.libtraci.Simulation.start(new StringVector(new String[] {"sumo-gui", "-c", sumocfgPath, "--start", "--delay", String.valueOf(delay), "--quit-on-end"}));
 	}
-	
+
 	public void reloadNetwork(String netxmlPath) {
 		try {
 			lanes.clear();
@@ -368,16 +368,18 @@ public class Simulation {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void setCurrentNetFile(String Path) {
 		this.currentNetFile = Path;
 	}
-	
+
 	public String getCurrentNetFile() {
 		return currentNetFile;
 	}
-	
-	
+	public Statistics getStats() {
+		return stats;
+	}
+
 
 	public void addNumberOfCarsToRoute(int n,String RouteID){
 		if (n<=0){

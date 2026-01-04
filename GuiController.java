@@ -32,6 +32,12 @@ public class GuiController {
 	private Image trafficLightGreen;
 	private Image trafficLightRed;
 	private Image trafficLightYellow;
+
+	//Label für Statistik
+	@FXML private Label labelAvgSpeed;
+	@FXML private Label labelVehicleDesiny;
+	@FXML private Label labelCongHotspots;
+	@FXML private Label labelTravelTIme;
     //Tab Create Vehicle
     @FXML
     private ComboBox<String> comboBoxEdges;
@@ -87,16 +93,16 @@ public class GuiController {
 
     @FXML
     private Canvas canvasMap;
-    
+
     @FXML
     private Button chooseFileButton;
-    
-    @FXML	
+
+    @FXML
     private Button activeFileButton;
-    
+
     @FXML
     private Button chooseNetButton;
-    
+
 
 
 
@@ -104,7 +110,7 @@ public class GuiController {
     private double gap = 40;
     private double boxHalf = 35;
 	final double TEXTURERADIUS=8;
-	
+
 	private String selectedConfigPath;
 	private Runnable restartCallback;
 	public void setOnRestart(Runnable r) {
@@ -114,8 +120,8 @@ public class GuiController {
     //Simulation
     private Simulation sim;
 	private boolean isConfigStarted=false;
-	
-	
+
+
 	public void loadConfig(){
 		isConfigStarted=true;
 	}
@@ -227,23 +233,29 @@ public class GuiController {
         }
         */
 		for (Car car : sim.getCars()) {
-			gc.drawImage(carImage,car.getPosition().x-TEXTURERADIUS+halfwidth,-car.getPosition().y-TEXTURERADIUS+halfheight);
+
+			double x = car.getPosition().x + halfwidth;
+			double y = -car.getPosition().y + halfheight;
+
+			double angle = car.getAngle(); // in grad
+
+			gc.save();
+
+			// Anfang..
+			gc.translate(x, y);
+
+			// rotate
+			gc.rotate(angle + 90); //+90Grad richtige Ausrichtung für die Rotation
+
+			// Bild wird erstellt
+			gc.drawImage(
+				carImage,
+				-TEXTURERADIUS,
+				-TEXTURERADIUS
+			);
+
+			gc.restore();
 		}
-		/*
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, w, h);
-
-        Color roadFill = Color.rgb(235, 235, 235);
-        Color roadEdge = Color.rgb(150, 150, 150);
-
-        gc.setStroke(roadFill);
-        gc.setLineWidth(roadW);
-
-        gc.strokeLine(20, halfheight - gap, w - 20, halfheight - gap);
-        gc.setStroke(roadEdge);
-        gc.setLineWidth(2);
-        */
-
     }
 
     @FXML
@@ -251,53 +263,67 @@ public class GuiController {
         comboBoxColors.setItems(FXCollections.observableArrayList("black", "white"));
         draw();
     }
-    
+
+
     @FXML
     private void handleChooseFile() {
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = 
+        FileChooser.ExtensionFilter extFilter =
                 new FileChooser.ExtensionFilter("SUMO Config Dateien (*.sumocfg)", "*.sumocfg");
             fileChooser.getExtensionFilters().add(extFilter);
         fileChooser.setTitle("Select Cfg");
         File selectedFile = fileChooser.showOpenDialog(chooseFileButton.getScene().getWindow());
-        
+
         if (selectedFile != null) {
             selectedConfigPath = selectedFile.getAbsolutePath();
           } else {
         	System.out.println("That is Null");
         }
     }
-    
+
     @FXML
     private void handleChooseNet() {
     	FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = 
+        FileChooser.ExtensionFilter extFilter =
                 new FileChooser.ExtensionFilter("Net Xml Dateien (*.net.xml)", "*.net.xml");
             fileChooser.getExtensionFilters().add(extFilter);
         fileChooser.setTitle("Select Network");
        File selectedNetFile = fileChooser.showOpenDialog(chooseNetButton.getScene().getWindow());
-       
+
        if (selectedNetFile != null) {
            sim.setCurrentNetFile(selectedNetFile.getAbsolutePath());
          } else {
        	System.out.println("No net,xml selected");
        }
     }
-    
-    
+	public void updateStatistics() {
+		if (sim == null) return;
+
+		Statistics stats = sim.getStats();
+
+		labelAvgSpeed.setText(
+			String.format("%.1f", stats.getAverageSpeed())
+		);
+
+		// Platzhalter bei keinen Werten
+		labelVehicleDesiny.setText("");
+		labelCongHotspots.setText("");
+		labelTravelTIme.setText("");
+	}
+
     @FXML
     private void handleActivedFile() {
        if(selectedConfigPath == null) {
     	   System.out.println("No Path selected");
     	   return;
        }
-       
+
        System.out.println(selectedConfigPath);
        sim.setSumocfgPath(selectedConfigPath);
-       
+
        if(restartCallback != null) {
     	   restartCallback.run();
        }
-       
+
     }
 }
