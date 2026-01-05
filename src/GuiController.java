@@ -25,61 +25,48 @@ public class GuiController {
 	private Image trafficLightGreen;
 	private Image trafficLightRed;
 	private Image trafficLightYellow;
+
     //Tab Create Vehicle
-    @FXML
-    private ComboBox<String> comboBoxEdges;
-    @FXML
-    private ComboBox<String> comboBoxColors;
-    @FXML
-    private ComboBox<String> comboBoxRoutes;
-    @FXML
-    private TextField textFieldStartSpeed;
-    @FXML
-    private Button buttonAddToSim;
+    @FXML private ComboBox<String> comboBoxEdges;
+    @FXML private ComboBox<String> comboBoxColors;
+    @FXML private ComboBox<String> comboBoxRoutes;
+    @FXML private TextField textFieldStartSpeed;
+    @FXML private Button buttonAddToSim;
 
 
     //Tab Edit Vehicle
-    @FXML
-    private ComboBox<String> comboBoxSelectVehicle;
-    @FXML
-    private ComboBox<String> comboBoxSetColor;
-    @FXML
-    private ComboBox<String> comboBoxChangeRoute;
-    @FXML
-    private TextField textFieldChangeSpeed;
-    @FXML
-    private Button buttonChangeColor;
-    @FXML
-    private Button buttonChangeRoute;
-    @FXML
-    private Button buttonChangeSpeed;
-    @FXML
-    private Label labelVehicleColor;
-    @FXML
-    private Label labelVehicleSpeed;
-    @FXML
-    private Label labelVehicleRoute;
+    @FXML private ComboBox<String> comboBoxSelectVehicle;
+    @FXML private ComboBox<String> comboBoxSetColor;
+    @FXML private ComboBox<String> comboBoxChangeRoute;
+    @FXML private TextField textFieldChangeSpeed;
+    @FXML private Button buttonChangeColor;
+    @FXML private Button buttonChangeRoute;
+    @FXML private Button buttonChangeSpeed;
+    @FXML private Label labelVehicleColor;
+    @FXML private Label labelVehicleSpeed;
+    @FXML private Label labelVehicleRoute;
 
     //Tab Traffic Lights
-    @FXML
-    private ComboBox<String> comboBoxSelectLight;
-    @FXML
-    private Label labelCurrentLightPhase;
-    @FXML
-    private Label labelNextLightPhase;
-    @FXML
-    private Label labelDurationRed;
-    @FXML
-    private Button buttonChangePhase;
-    @FXML
-    private Button buttonLightDuration;
-    @FXML
-    private TextField textFieldLightDuration;
-    @FXML
-    private Button buttonStartStopSimulation;
+    @FXML private ComboBox<String> comboBoxSelectLight;
+    @FXML private Label labelCurrentLightPhase;
+    @FXML private Label labelNextLightPhase;
+    @FXML private Label labelDurationRed;
+    @FXML private Button buttonChangePhase;
+    @FXML private Button buttonLightDuration;
+    @FXML private TextField textFieldLightDuration;
+    @FXML private Button buttonStartStopSimulation;
 
-    @FXML
-    private Canvas canvasMap;
+    //Map Canvas + Control
+    @FXML private Canvas canvasMap;
+    @FXML private Button buttonZoomIn;
+    @FXML private Button buttonZoomOut;
+    @FXML private Button buttonRotateLeft;
+    @FXML private Button buttonRotateRight;
+    @FXML private Button buttonLeft;
+    @FXML private Button buttonRight;
+    @FXML private Button buttonUp;
+    @FXML private Button buttonDown;
+
 
     private double roadW = 20;
     private double gap = 40;
