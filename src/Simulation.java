@@ -26,7 +26,7 @@ public class Simulation {
 	private route[] routes;
 	public boolean paused=false;
 	private trafficLight[] trafficLights;
-    private Statistics stats;
+	private Statistics stats;
 	private DynamicGraphics g;
 	private String sumocfgPath = "SumoConfig/hello.sumocfg";
 	private volatile boolean running = false;
@@ -35,7 +35,7 @@ public class Simulation {
 	Simulation(){
 		cars=new HashMap<String,Car>();
 		trafficLights=new trafficLight[0];
-        stats=new Statistics();
+		stats=new Statistics(this);
 		lanes=new ArrayList<Lane>();
 		g=new DynamicGraphics(null,null);
 		try {
@@ -67,7 +67,7 @@ public class Simulation {
 		return null;
 	}
 	public void togglePause(){
-		paused=!paused;		
+		paused=!paused;
 	}
 
 	String getCarsColorFromID(String carID){
@@ -263,8 +263,8 @@ public class Simulation {
 		return routes;
 	}
 	public String[] getRouteIDs(){
-        if (routes == null || routes.length == 0) return new String[] {"route0"};
-        route[] routes=getRoutes();
+		if (routes == null || routes.length == 0) return new String[] {"route0"};
+		route[] routes=getRoutes();
 		String[] ids=new String[routes.length];
 		for (int i=0;i<routes.length;i++){
 			ids[i]=routes[i].getID();
@@ -322,44 +322,44 @@ public class Simulation {
 
 
 	public void step() {
-        // called from the simulation thread once per tick
+		// called from the simulation thread once per tick
 		org.eclipse.sumo.libtraci.Simulation.step();
 		updateCarMapping();
 		for (Car c:cars.values()){
 			c.update();
 		}
-        for (int i=0;i<trafficLights.length;i++){
-            trafficLights[i].update();
-        }
-        stats.update();
+		for (int i=0;i<trafficLights.length;i++){
+			trafficLights[i].update();
+		}
+		stats.update();
 		printCars();
 
 	}
-	
+
 	public void setSumocfgPath(String path) {
 		this.sumocfgPath = path;
 	}
 	public String getSumocfgPath() {
 		return sumocfgPath;
 	}
-	
+
 	public void stopSimulation() {
 		running = false;
 		try {
 			org.eclipse.sumo.libtraci.Simulation.close();
 		}catch (Exception ignored) {}
 	}
-	
+
 	public boolean isRunning() {
 		return running;
 	}
-	
+
 	public void startSimulation(int delay) {
 		running = true;
 		load();
 		org.eclipse.sumo.libtraci.Simulation.start(new StringVector(new String[] {"sumo-gui", "-c", sumocfgPath, "--start", "--delay", String.valueOf(delay), "--quit-on-end"}));
 	}
-	
+
 	public void reloadNetwork(String netxmlPath) {
 		try {
 			lanes.clear();
@@ -368,16 +368,18 @@ public class Simulation {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void setCurrentNetFile(String Path) {
 		this.currentNetFile = Path;
 	}
-	
+
 	public String getCurrentNetFile() {
 		return currentNetFile;
 	}
-	
-	
+	public Statistics getStats() {
+		return stats;
+	}
+
 
 	public void addNumberOfCarsToRoute(int n,String RouteID){
 		if (n<=0){
@@ -385,11 +387,11 @@ public class Simulation {
 		}
 		for (int i=0;i<n;i++){
 			createNewCar("","10","",RouteID);
-			}
 		}
-        public void add100Cars(){
-            addNumberOfCarsToRoute(100,"Route0");
-        }
+	}
+	public void add100Cars(){
+		addNumberOfCarsToRoute(100,"Route0");
+	}
 
 }
 

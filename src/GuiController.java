@@ -32,98 +32,108 @@ public class GuiController {
 	private Image trafficLightGreen;
 	private Image trafficLightRed;
 	private Image trafficLightYellow;
-    //Tab Create Vehicle
-    @FXML
-    private ComboBox<String> comboBoxEdges;
-    @FXML
-    private ComboBox<String> comboBoxColors;
-    @FXML
-    private ComboBox<String> comboBoxRoutes;
-    @FXML
-    private TextField textFieldStartSpeed;
-    @FXML
-    private Button buttonAddToSim;
+
+	//Label für Statistik
+	@FXML private Label labelAvgSpeed;
+	@FXML private Label labelVehicleDesiny;
+	@FXML private Label labelCongHotspots;
+	@FXML private Label labelTravelTIme;
+	//Tab Create Vehicle
+	@FXML private ComboBox<String> comboBoxEdges;
+	@FXML private ComboBox<String> comboBoxColors;
+	@FXML private ComboBox<String> comboBoxRoutes;
+	@FXML private TextField textFieldStartSpeed;
+	@FXML private Button buttonAddToSim;
 
 
-    //Tab Edit Vehicle
-    @FXML
-    private ComboBox<String> comboBoxSelectVehicle;
-    @FXML
-    private ComboBox<String> comboBoxSetColor;
-    @FXML
-    private ComboBox<String> comboBoxChangeRoute;
-    @FXML
-    private TextField textFieldChangeSpeed;
-    @FXML
-    private Button buttonChangeColor;
-    @FXML
-    private Button buttonChangeRoute;
-    @FXML
-    private Button buttonChangeSpeed;
-    @FXML
-    private Label labelVehicleColor;
-    @FXML
-    private Label labelVehicleSpeed;
-    @FXML
-    private Label labelVehicleRoute;
+	//Tab Edit Vehicle
+	@FXML
+	private ComboBox<String> comboBoxSelectVehicle;
+	@FXML
+	private ComboBox<String> comboBoxSetColor;
+	@FXML
+	private ComboBox<String> comboBoxChangeRoute;
+	@FXML
+	private TextField textFieldChangeSpeed;
+	@FXML
+	private Button buttonChangeColor;
+	@FXML
+	private Button buttonChangeRoute;
+	@FXML
+	private Button buttonChangeSpeed;
+	@FXML
+	private Label labelVehicleColor;
+	@FXML
+	private Label labelVehicleSpeed;
+	@FXML
+	private Label labelVehicleRoute;
 
-    //Tab Traffic Lights
-    @FXML
-    private ComboBox<String> comboBoxSelectLight;
-    @FXML
-    private Label labelCurrentLightPhase;
-    @FXML
-    private Label labelNextLightPhase;
-    @FXML
-    private Label labelDurationRed;
-    @FXML
-    private Button buttonChangePhase;
-    @FXML
-    private Button buttonLightDuration;
-    @FXML
-    private TextField textFieldLightDuration;
-    @FXML
-    private Button buttonStartStopSimulation;
-
-    @FXML
-    private Canvas canvasMap;
-    
-    @FXML
-    private Button chooseFileButton;
-    
-    @FXML	
-    private Button activeFileButton;
-    
-    @FXML
-    private Button chooseNetButton;
-    
+	//Tab Traffic Lights
+	@FXML
+	private ComboBox<String> comboBoxSelectLight;
+	@FXML
+	private Label labelCurrentLightPhase;
+	@FXML
+	private Label labelNextLightPhase;
+	@FXML
+	private Label labelDurationRed;
+	@FXML
+	private Button buttonChangePhase;
+	@FXML
+	private Button buttonLightDuration;
+	@FXML
+	private TextField textFieldLightDuration;
+	@FXML
+	private Button buttonStartStopSimulation;
+	//Map Canvas + Control
 
 
+	@FXML private Canvas canvasMap;
+	@FXML private Button buttonZoomIn;
+	@FXML private Button buttonZoomOut;
+	@FXML private Button buttonRotateLeft;
+	@FXML private Button buttonRotateRight;
+	@FXML private Button buttonLeft;
+	@FXML private Button buttonRight;
+	@FXML private Button buttonUp;
+	@FXML private Button buttonDown;
 
-    private double roadW = 20;
-    private double gap = 40;
-    private double boxHalf = 35;
+	@FXML
+	private Button chooseFileButton;
+
+	@FXML
+	private Button activeFileButton;
+
+	@FXML
+	private Button chooseNetButton;
+
+
+
+
+	private double roadW = 20;
+	private double gap = 40;
+	private double boxHalf = 35;
 	final double TEXTURERADIUS=8;
-	
+
 	private String selectedConfigPath;
 	private Runnable restartCallback;
 	public void setOnRestart(Runnable r) {
 		this.restartCallback = r;
 	}
 
-    //Simulation
-    private Simulation sim;
+	//Simulation
+	private Simulation sim;
 	private boolean isConfigStarted=false;
-	
-	
+
+
 	public void loadConfig(){
 		isConfigStarted=true;
 	}
-    public void setSimulation(Simulation sim){
+	public void setSimulation(Simulation sim){
 		System.out.println("sim started");
-        this.sim = sim;
-        comboBoxFill();
-    }
+		this.sim = sim;
+		comboBoxFill();
+	}
 	public void loadImagesFromDisk(){
 		carImage=new Image(new File("textures/car_icon.png").toURI().toString());//.getImage();
 		trafficLightYellow=new Image(new File("textures/yellow_light.png").toURI().toString());
@@ -132,61 +142,61 @@ public class GuiController {
 		trafficLightGrey=new Image(new File("textures/grey_light.png").toURI().toString());
 	}
 
-    public void comboBoxFill(){
-        if (sim != null) {
-            comboBoxEdges.setItems(FXCollections.observableArrayList());
-            comboBoxRoutes.setItems(FXCollections.observableArrayList(sim.getRouteIDs()));
-            comboBoxSelectVehicle.setItems(FXCollections.observableArrayList(sim.getCarIDs()));
-            comboBoxSelectLight.setItems(FXCollections.observableArrayList(sim.getTrafficLightIDs()));
-        }
-    }
+	public void comboBoxFill(){
+		if (sim != null) {
+			comboBoxEdges.setItems(FXCollections.observableArrayList());
+			comboBoxRoutes.setItems(FXCollections.observableArrayList(sim.getRouteIDs()));
+			comboBoxSelectVehicle.setItems(FXCollections.observableArrayList(sim.getCarIDs()));
+			comboBoxSelectLight.setItems(FXCollections.observableArrayList(sim.getTrafficLightIDs()));
+		}
+	}
 
-    public void newCar(){
-        sim.createNewCar("0", textFieldStartSpeed.getText(), comboBoxColors.getValue(), comboBoxRoutes.getValue());
-    }
+	public void newCar(){
+		sim.createNewCar("0", textFieldStartSpeed.getText(), comboBoxColors.getValue(), comboBoxRoutes.getValue());
+	}
 
-    public void currentCar(){
-        String curCar = comboBoxSelectVehicle.getValue();
-        labelVehicleColor.setText(sim.getCarsColorFromID(curCar));
-        labelVehicleSpeed.setText(sim.getCarsSpeedFromID(curCar));
-        labelVehicleRoute.setText(sim.getCarsRouteFromID(curCar));
-    }
+	public void currentCar(){
+		String curCar = comboBoxSelectVehicle.getValue();
+		labelVehicleColor.setText(sim.getCarsColorFromID(curCar));
+		labelVehicleSpeed.setText(sim.getCarsSpeedFromID(curCar));
+		labelVehicleRoute.setText(sim.getCarsRouteFromID(curCar));
+	}
 
-    public void readLight(){
-        String curTrafficLight = comboBoxSelectLight.getValue();
-        labelCurrentLightPhase.setText(sim.getTrafficLightColorFromID(curTrafficLight));
-        labelDurationRed.setText(sim.getTrafficLightCycleLengthFromID(curTrafficLight));
-    }
+	public void readLight(){
+		String curTrafficLight = comboBoxSelectLight.getValue();
+		labelCurrentLightPhase.setText(sim.getTrafficLightColorFromID(curTrafficLight));
+		labelDurationRed.setText(sim.getTrafficLightCycleLengthFromID(curTrafficLight));
+	}
 
-    public void setLightDurationBtn(){
-        String curTrafficLight = comboBoxSelectLight.getValue();
-        Float dur = Float.valueOf(textFieldLightDuration.getText());
-        sim.setTrafficLightCycleLengthFromID(curTrafficLight, String.valueOf(dur));
-        labelDurationRed.setText(sim.getTrafficLightCycleLengthFromID(curTrafficLight));
-    }
+	public void setLightDurationBtn(){
+		String curTrafficLight = comboBoxSelectLight.getValue();
+		Float dur = Float.valueOf(textFieldLightDuration.getText());
+		sim.setTrafficLightCycleLengthFromID(curTrafficLight, String.valueOf(dur));
+		labelDurationRed.setText(sim.getTrafficLightCycleLengthFromID(curTrafficLight));
+	}
 
-    public void togglePause(){
-        sim.togglePause();
-    }
+	public void togglePause(){
+		sim.togglePause();
+	}
 
-    public void printMap(){
-        GraphicsContext gc = canvasMap.getGraphicsContext2D();
-        //Build Map here
-    }
+	public void printMap(){
+		GraphicsContext gc = canvasMap.getGraphicsContext2D();
+		//Build Map here
+	}
 
-    public void draw() {
-        GraphicsContext gc = canvasMap.getGraphicsContext2D();
-        double w = canvasMap.getWidth();
-        double h = canvasMap.getHeight();
+	public void draw() {
+		GraphicsContext gc = canvasMap.getGraphicsContext2D();
+		double w = canvasMap.getWidth();
+		double h = canvasMap.getHeight();
 
-        double halfwidth = w / 2;
-        double halfheight = h / 2;
+		double halfwidth = w / 2;
+		double halfheight = h / 2;
 
-        drawMapFX(gc, w, h, halfwidth, halfheight);
-    }
+		drawMapFX(gc, w, h, halfwidth, halfheight);
+	}
 
-    private void drawMapFX(GraphicsContext gc, double w, double h,
-                           double halfwidth, double halfheight) {
+	private void drawMapFX(GraphicsContext gc, double w, double h,
+						   double halfwidth, double halfheight) {
 		gc.setFill(Color.WHITE);
 		gc.fillRect(0, 0, w, h);
 		if (sim==null){
@@ -227,77 +237,97 @@ public class GuiController {
         }
         */
 		for (Car car : sim.getCars()) {
-			gc.drawImage(carImage,car.getPosition().x-TEXTURERADIUS+halfwidth,-car.getPosition().y-TEXTURERADIUS+halfheight);
+
+			double x = car.getPosition().x + halfwidth;
+			double y = -car.getPosition().y + halfheight;
+
+			double angle = car.getAngle(); // in grad
+
+			gc.save();
+
+			// Anfang..
+			gc.translate(x, y);
+
+			// rotate
+			gc.rotate(angle + 90); //+90Grad richtige Ausrichtung für die Rotation
+
+			// Bild wird erstellt
+			gc.drawImage(
+				carImage,
+				-TEXTURERADIUS,
+				-TEXTURERADIUS
+			);
+
+			gc.restore();
 		}
-		/*
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, w, h);
+	}
 
-        Color roadFill = Color.rgb(235, 235, 235);
-        Color roadEdge = Color.rgb(150, 150, 150);
+	@FXML
+	public void initialize(){
+		comboBoxColors.setItems(FXCollections.observableArrayList("black", "white"));
+		draw();
+	}
 
-        gc.setStroke(roadFill);
-        gc.setLineWidth(roadW);
 
-        gc.strokeLine(20, halfheight - gap, w - 20, halfheight - gap);
-        gc.setStroke(roadEdge);
-        gc.setLineWidth(2);
-        */
+	@FXML
+	private void handleChooseFile() {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter =
+			new FileChooser.ExtensionFilter("SUMO Config Dateien (*.sumocfg)", "*.sumocfg");
+		fileChooser.getExtensionFilters().add(extFilter);
+		fileChooser.setTitle("Select Cfg");
+		File selectedFile = fileChooser.showOpenDialog(chooseFileButton.getScene().getWindow());
 
-    }
+		if (selectedFile != null) {
+			selectedConfigPath = selectedFile.getAbsolutePath();
+		} else {
+			System.out.println("That is Null");
+		}
+	}
 
-    @FXML
-    public void initialize(){
-        comboBoxColors.setItems(FXCollections.observableArrayList("black", "white"));
-        draw();
-    }
-    
-    @FXML
-    private void handleChooseFile() {
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = 
-                new FileChooser.ExtensionFilter("SUMO Config Dateien (*.sumocfg)", "*.sumocfg");
-            fileChooser.getExtensionFilters().add(extFilter);
-        fileChooser.setTitle("Select Cfg");
-        File selectedFile = fileChooser.showOpenDialog(chooseFileButton.getScene().getWindow());
-        
-        if (selectedFile != null) {
-            selectedConfigPath = selectedFile.getAbsolutePath();
-          } else {
-        	System.out.println("That is Null");
-        }
-    }
-    
-    @FXML
-    private void handleChooseNet() {
-    	FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = 
-                new FileChooser.ExtensionFilter("Net Xml Dateien (*.net.xml)", "*.net.xml");
-            fileChooser.getExtensionFilters().add(extFilter);
-        fileChooser.setTitle("Select Network");
-       File selectedNetFile = fileChooser.showOpenDialog(chooseNetButton.getScene().getWindow());
-       
-       if (selectedNetFile != null) {
-           sim.setCurrentNetFile(selectedNetFile.getAbsolutePath());
-         } else {
-       	System.out.println("No net,xml selected");
-       }
-    }
-    
-    
-    @FXML
-    private void handleActivedFile() {
-       if(selectedConfigPath == null) {
-    	   System.out.println("No Path selected");
-    	   return;
-       }
-       
-       System.out.println(selectedConfigPath);
-       sim.setSumocfgPath(selectedConfigPath);
-       
-       if(restartCallback != null) {
-    	   restartCallback.run();
-       }
-       
-    }
+	@FXML
+	private void handleChooseNet() {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter =
+			new FileChooser.ExtensionFilter("Net Xml Dateien (*.net.xml)", "*.net.xml");
+		fileChooser.getExtensionFilters().add(extFilter);
+		fileChooser.setTitle("Select Network");
+		File selectedNetFile = fileChooser.showOpenDialog(chooseNetButton.getScene().getWindow());
+
+		if (selectedNetFile != null) {
+			sim.setCurrentNetFile(selectedNetFile.getAbsolutePath());
+		} else {
+			System.out.println("No net,xml selected");
+		}
+	}
+	public void updateStatistics() {
+		if (sim == null) return;
+
+		Statistics stats = sim.getStats();
+
+		labelAvgSpeed.setText(
+			String.format("%.1f", stats.getAverageSpeed())
+		);
+
+		// Platzhalter bei keinen Werten
+		labelVehicleDesiny.setText("");
+		labelCongHotspots.setText("");
+		labelTravelTIme.setText("");
+	}
+
+	@FXML
+	private void handleActivedFile() {
+		if(selectedConfigPath == null) {
+			System.out.println("No Path selected");
+			return;
+		}
+
+		System.out.println(selectedConfigPath);
+		sim.setSumocfgPath(selectedConfigPath);
+
+		if(restartCallback != null) {
+			restartCallback.run();
+		}
+
+	}
 }

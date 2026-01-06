@@ -1,14 +1,30 @@
 public class Statistics {
-    public enum properties{};
-    //will be used for collecting and exporting Statistics of the traffic flow
-    private int timesteps=0;
-    public void getCurrentCarsPerRoute(){
-    }
-    public void update(){
-		timesteps++;
+
+	private Simulation sim;
+	private int timesteps = 0;
+	private float averageSpeed = 0;
+
+	public Statistics(Simulation sim) {
+		this.sim = sim;
 	}
-    private float[] averageCarsPerRoute;
-    public void exportCSV(String filepath){}
-    public void graphProperty(properties prop, int routeIndex){}
-    public void exportProperty(properties prop, int routeIndex,String filepath){}
+
+	public void update() {
+		timesteps++;
+
+		Car[] cars = sim.getCars();
+		if (cars.length == 0) {
+			averageSpeed = 0;
+			return;
+		}
+
+		double sum = 0;
+		for (Car c : cars) {
+			sum += c.getSpeed();
+		}
+		averageSpeed = (float)(sum / cars.length);
+	}
+
+	public float getAverageSpeed() {
+		return averageSpeed;
+	}
 }
