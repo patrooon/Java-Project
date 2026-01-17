@@ -16,8 +16,6 @@ public class Car {
     private double departTime = -1;  // start time (seconds)
     private boolean arrived = false; // finished trip
 
-    public double getDepartTime() { return departTime; }
-    public boolean hasArrived() { return arrived; }
 
 
     public Vector2D getPosition(){
@@ -40,14 +38,14 @@ public class Car {
 		currentID++;
 		transform=new Transform2D();
 	}
-	// functions
-	//updates data each step
-	public void update(){
+    // functions
+    //updates data each step
+    public void update(){
         //  If vehicle is gone it fnished
-		if (!Vehicle.getIDList().contains(id)) {
-			arrived = true;
-			return;
-		}
+        if (!Vehicle.getIDList().contains(id)) {
+            arrived = true;
+            return;
+        }
 
         // simulation time
         if (departTime < 0) {
@@ -61,24 +59,24 @@ public class Car {
         this.speed = Vehicle.getSpeed(id);
 
         // Update position
-		TraCIPosition tracipos = Vehicle.getPosition(id);
-		Vector2D newPos = new Vector2D(
-			(float) tracipos.getX(),
-			(float) tracipos.getY()
-		);
+        TraCIPosition tracipos = Vehicle.getPosition(id);
+        Vector2D newPos = new Vector2D(
+                (float) tracipos.getX(),
+                (float) tracipos.getY()
+        );
 
-		if (lastPosition != null) {
-			double dx = newPos.x - lastPosition.x;
-			double dy = newPos.y - lastPosition.y;
+        if (lastPosition != null) {
+            double dx = newPos.x - lastPosition.x;
+            double dy = newPos.y - lastPosition.y;
 
-			if (dx != 0 || dy != 0) {
-				angle = Math.toDegrees(Math.atan2(dy, dx));
-				angle = -angle; // wegen invertierter Y-Achse im GUI
-			}
-		}
+            if (dx != 0 || dy != 0) {
+                angle = Math.toDegrees(Math.atan2(dy, dx));
+                angle = -angle; // wegen invertierter Y-Achse im GUI
+            }
+        }
 
-		lastPosition = newPos;
-		transform.setPosition(newPos);
+        lastPosition = newPos;
+        transform.setPosition(newPos);
 
 
 
@@ -94,7 +92,7 @@ public class Car {
         TraCIPosition tracipos=Vehicle.getPosition(id);
         transform.setPosition(new Vector2D((float) tracipos.getX(), (float) tracipos.getY()));//all this does is overwrite the position in transform with the one in sumo
 	*/
-	}
+    }
 	public void setColor(String hexColor){
 		this.color=hexColor;
 	}
