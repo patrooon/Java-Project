@@ -32,6 +32,7 @@ public class GuiController {
 	private Image trafficLightGreen;
 	private Image trafficLightRed;
 	private Image trafficLightYellow;
+	private Camera2D camera=new Camera2D(960,540);
 
 	//Label für Statistik
 	@FXML private Label labelAvgSpeed;
@@ -154,6 +155,34 @@ public class GuiController {
 	public void newCar(){
 		sim.createNewCar("0", textFieldStartSpeed.getText(), comboBoxColors.getValue(), comboBoxRoutes.getValue());
 	}
+	public void zoomIn(){
+		camera.changeZoom(0.1F);
+	}
+	public void zoomOut(){
+		camera.changeZoom(-0.1F);
+	}
+	public void moveUp(){
+		System.out.println("has moved");
+		camera.moveCameraByAmount(new Vector2D(0,-10));
+	}
+	public void moveDown(){
+		System.out.println("has moved");
+		camera.moveCameraByAmount(new Vector2D(0,10));
+	}
+	public void moveLeft(){
+		System.out.println("has moved");
+		camera.moveCameraByAmount(new Vector2D(-10,0));
+	}
+	public void moveRight(){
+		System.out.println("has moved");
+		camera.moveCameraByAmount(new Vector2D(10,0));
+	}
+	public void rotateClockwise(){
+		camera.rotateClockwise();
+	}
+	public void rotateCounterclockwise(){
+		camera.rotateCounterclockwise();
+	}
 
 	public void currentCar(){
 		String curCar = comboBoxSelectVehicle.getValue();
@@ -167,7 +196,6 @@ public class GuiController {
 		labelCurrentLightPhase.setText(sim.getTrafficLightColorFromID(curTrafficLight));
 		labelDurationRed.setText(sim.getTrafficLightCycleLengthFromID(curTrafficLight));
 	}
-
 	public void setLightDurationBtn(){
 		String curTrafficLight = comboBoxSelectLight.getValue();
 		Float dur = Float.valueOf(textFieldLightDuration.getText());
@@ -201,30 +229,36 @@ public class GuiController {
 		gc.fillRect(0, 0, w, h);
 		if (sim==null){
 			System.out.println("is null");
-			//gc.drawImage(carImage,300,200);
-			//System.out.println("is null");
 			return;
 		}
 		for (Lane lane:sim.getLanes()){
 			for(int i=0;i<lane.getLine().size()-1;i++){
-				gc.strokeLine(lane.getLine().get(i).x+halfwidth,-lane.getLine().get(i).y+halfheight,lane.getLine().get(i+1).x+halfwidth,-lane.getLine().get(i+1).y+halfheight);
+				Vector2D localPos1=camera.getLocalPositionFromGLobal(lane.getLine().get(i));
+				Vector2D localPos2=camera.getLocalPositionFromGLobal(lane.getLine().get(i+1));
+				gc.strokeLine(localPos1.x+halfwidth,localPos1.y+halfheight,localPos2.x+halfwidth,localPos2.y+halfheight);
 			}
 		}
-		System.out.println("not null");
-
-		//return;
 		// Static textures
-        /*
+		System.out.println(sim.getTrafficLights().length);
         for (trafficLight tl:sim.getTrafficLights()){
+			if (tl==null){
+				continue;
+			}
             if (tl.getTrafficLight().equals("")){
                 for(int i=0;i<tl.getStopLinePositions().size();i++){
                     gc.drawImage(trafficLightGrey,tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfwidth,-tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfheight);
                 }
             }
             else{
+
                 for (int i=0;i<tl.getTrafficLight().length();i++){
-                    if (tl.getTrafficLight().charAt(i)=='G'){
-                        gc.drawImage(trafficLightGreen,tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfwidth,-tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfheight);
+                    if (tl.getTrafficLight().charAt(i)=='G'||tl.getTrafficLight().charAt(i)=='g'){
+                        //gc.drawImage(trafficLightGreen,tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfwidth,-tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfheight);
+						gc.setStroke(Color.GREEN);
+
+						for (int j=0;j<tl.getStopLinePositions().size()-1;j++){
+							gc.strokeLine(tl.getStopLinePositions().get(j).x,tl.getStopLinePositions().get(j).y,tl.getStopLinePositions().get(j+1).x,tl.getStopLinePositions().get(j+1).y);
+						}
                     }
                     if (tl.getTrafficLight().charAt(i)=='y'){
                         gc.drawImage(trafficLightYellow,tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfwidth,-tl.getStopLinePositions().get(i).x-TEXTURERADIUS+halfheight);
@@ -235,11 +269,12 @@ public class GuiController {
                 }
             }
         }
-        */
-		for (Car car : sim.getCars()) {
 
-			double x = car.getPosition().x + halfwidth;
-			double y = -car.getPosition().y + halfheight;
+
+		for (Car car : sim.getCars()) {
+			Transform2D carRelativeTransform=camera.getLocalTransformFromGlobal(car.getTransform());
+			double x = carRelativeTransform.getPosition().x + halfwidth;
+			double y = carRelativeTransform.getPosition().y + halfheight;
 
 			double angle = car.getAngle(); // in grad
 
@@ -247,10 +282,9 @@ public class GuiController {
 
 			// Anfang..
 			gc.translate(x, y);
-
+			gc.scale(carRelativeTransform.getScale(),carRelativeTransform.getScale());
 			// rotate
-			gc.rotate(angle + 90); //+90Grad richtige Ausrichtung für die Rotation
-
+			gc.rotate(angle + 90- Math.toDegrees(camera.getRotation())); //+90Grad richtige Ausrichtung für die Rotation
 			// Bild wird erstellt
 			gc.drawImage(
 				carImage,

@@ -27,7 +27,6 @@ public class Simulation {
 	public boolean paused=false;
 	private trafficLight[] trafficLights;
 	private Statistics stats;
-	private DynamicGraphics g;
 	private String sumocfgPath = "SumoConfig/hello.sumocfg";
 	private volatile boolean running = false;
 	private String currentNetFile;
@@ -37,7 +36,6 @@ public class Simulation {
 		trafficLights=new trafficLight[0];
 		stats=new Statistics(this);
 		lanes=new ArrayList<Lane>();
-		g=new DynamicGraphics(null,null);
 		try {
 			loadNetwork("");
 		} catch (ParserConfigurationException e) {
@@ -105,6 +103,7 @@ public class Simulation {
 		NodeList junctions=document.getElementsByTagName("junction");
 		NodeList edges = document.getElementsByTagName("edge");
 		NodeList lanes =document.getElementsByTagName("lane");
+		trafficLights=new trafficLight[junctions.getLength()];
 		// horrible mess of code fix as soon as possible
 		for (int i=0;i<lanes.getLength();i++) {
 			Node l = lanes.item(i);
@@ -144,6 +143,8 @@ public class Simulation {
 					}
 				}
 				t.setStopLinePositions(stopLines);
+				System.out.println("stopline is "+stopLines.toString());
+				trafficLights[i]=t;
 			}
 			else{
 				System.out.println("not an element");
@@ -287,7 +288,9 @@ public class Simulation {
 		trafficLight[] tls=getTrafficLights();
 		String[] ids=new String[tls.length];
 		for (int i=0;i<tls.length;i++){
-			ids[i]=tls[i].getID();
+			if (tls[i]!=null) {
+				ids[i] = tls[i].getID();
+			}
 		}
 		return ids;
 	}
@@ -329,7 +332,9 @@ public class Simulation {
 			c.update();
 		}
 		for (int i=0;i<trafficLights.length;i++){
-			trafficLights[i].update();
+			if (trafficLights[i]!=null){
+				trafficLights[i].update();
+			}
 		}
 		stats.update();
 		printCars();

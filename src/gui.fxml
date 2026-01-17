@@ -20,18 +20,18 @@
              <children>
                 <Canvas fx:id="canvasMap" height="455.0" width="377.0" AnchorPane.bottomAnchor="28.333333333333314" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.3333333333333144" AnchorPane.topAnchor="0.0" />
                <Label layoutX="14.0" layoutY="18.0" />
-               <Button fx:id="buttonZoomIn" layoutX="314.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" text="+" />
-               <Button fx:id="buttonZoomOut" layoutX="347.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" text="-" />
+               <Button fx:id="buttonZoomIn" layoutX="314.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" onAction="#zoomIn" prefWidth="27.0" text="+" />
+               <Button fx:id="buttonZoomOut" layoutX="347.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" onAction="#zoomOut" prefWidth="27.0" text="-" />
                <Label layoutX="136.0" layoutY="461.0" />
-               <Button fx:id="buttonUp" layoutX="70.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" text="↑" />
-               <Button fx:id="buttonDown" layoutX="103.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" text="↓" />
-               <Button fx:id="buttonLeft" layoutX="38.0" layoutY="456.0" mnemonicParsing="false" text="←" />
-               <Button fx:id="buttonRight" layoutX="135.0" layoutY="456.0" mnemonicParsing="false" text="→" />
+               <Button fx:id="buttonUp" layoutX="70.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" onAction="#moveUp" prefWidth="27.0" text="↑" />
+               <Button fx:id="buttonDown" layoutX="103.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" onAction="#moveDown" prefWidth="27.0" text="↓" />
+               <Button fx:id="buttonLeft" layoutX="38.0" layoutY="456.0" mnemonicParsing="false" onAction="#moveLeft" text="←" />
+               <Button fx:id="buttonRight" layoutX="135.0" layoutY="456.0" mnemonicParsing="false" onAction="#moveRight" text="→" />
                <Label layoutX="2.0" layoutY="460.0" text="Move:" />
                <Label layoutX="278.0" layoutY="461.0" text="Zoom:" />
                <Label layoutX="169.0" layoutY="461.0" text="Rotate:" />
-               <Button fx:id="buttonRotateLeft" layoutX="210.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" text="⟲" />
-               <Button fx:id="buttonRotateRight" layoutX="243.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="27.0" text="⟳" />
+               <Button fx:id="buttonRotateLeft" layoutX="210.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" onAction="#rotateCounterclockwise" prefWidth="27.0" text="⟲" />
+               <Button fx:id="buttonRotateRight" layoutX="243.0" layoutY="456.0" mnemonicParsing="false" prefHeight="25.0" onAction="#rotateClockwise" prefWidth="27.0" text="⟳" />
              </children></AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="497.0" prefWidth="359.0">
              <children>

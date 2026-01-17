@@ -59,6 +59,7 @@ public class trafficLight {
     }
 
 	public String getTrafficLight() {
+		//System.out.println(TrafficLight.getRedYellowGreenState(id));
 		return TrafficLight.getRedYellowGreenState(id);
 	}
 	@Override

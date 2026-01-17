@@ -22,6 +22,7 @@ public class Car {
 		this.id = "Veh"+currentID;
 		currentID++;
 		transform= new Transform2D();
+		transform.setScale(0.5f);
 	}
 	public double getAngle() {
 		return angle;
