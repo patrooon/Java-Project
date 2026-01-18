@@ -159,16 +159,6 @@ public class GuiController {
         sim.createNewCar("0", textFieldStartSpeed.getText(), comboBoxColors.getValue(), comboBoxRoutes.getValue());
     }
 
-    // Camera actions
-    public void zoomIn() { camera.changeZoom(0.1F); }
-    public void zoomOut() { camera.changeZoom(-0.1F); }
-    public void moveUp() { camera.moveCameraByAmount(new Vector2D(0, -10)); }
-    public void moveDown() { camera.moveCameraByAmount(new Vector2D(0, 10)); }
-    public void moveLeft() { camera.moveCameraByAmount(new Vector2D(-10, 0)); }
-    public void moveRight() { camera.moveCameraByAmount(new Vector2D(10, 0)); }
-    public void rotateClockwise() { camera.rotateClockwise(); }
-    public void rotateCounterclockwise() { camera.rotateCounterclockwise(); }
-
     public void currentCar() {
         if (sim == null) return;
         String curCar = comboBoxSelectVehicle.getValue();
@@ -660,4 +650,34 @@ public class GuiController {
         cs.endText();
         return y - (fontSize + 6);
     }
+
+    public void zoomIn(){
+        camera.changeZoom(0.1F);
+    }
+    public void zoomOut(){
+        camera.changeZoom(-0.1F);
+    }
+    public void moveUp(){
+        System.out.println("has moved");
+        camera.moveCameraByAmount(new Vector2D(0,-10));
+    }
+    public void moveDown(){
+        System.out.println("has moved");
+        camera.moveCameraByAmount(new Vector2D(0,10));
+    }
+    public void moveLeft(){
+        System.out.println("has moved");
+        camera.moveCameraByAmount(new Vector2D(-10,0));
+    }
+    public void moveRight(){
+        System.out.println("has moved");
+        camera.moveCameraByAmount(new Vector2D(10,0));
+    }
+    public void rotateClockwise(){
+        camera.rotateClockwise();
+    }
+    public void rotateCounterclockwise(){
+        camera.rotateCounterclockwise();
+    }
+
 }
