@@ -27,9 +27,11 @@ public class GuiMain extends Application {
 
 		controller.setOnRestart(this::restartSimulation);
 
-        Scene scene = new Scene(root, 708, 486);
+        Scene scene = new Scene(root);
         stage.setTitle("Simulation");
         stage.setScene(scene);
+        stage.setMaxWidth(900);
+        stage.setMaxHeight(650);
         stage.show();
 
         startSimulation();

@@ -39,7 +39,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://C:/Users/Program Files (x86)/Eclipse/Sumo/bin/TraaS.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../Users/Program Files (x86)/Eclipse/Sumo/bin/TraaS.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -75,7 +75,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://C:/Users/Program Files (x86)/Eclipse/Sumo/bin/TraaS.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../Users/Program Files (x86)/Eclipse/Sumo/bin/TraaS.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -94,6 +94,42 @@
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Downloads/pdfbox-2.0.35.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../sumo/bin/libtraci-1.24.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../pdfbox/fontbox-2.0.35.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../pdfbox/pdfbox-2.0.35.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../Program Files (x86)/Eclipse/Sumo/bin/TraaS.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
