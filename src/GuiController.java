@@ -254,8 +254,12 @@ public class GuiController {
             gc.scale(local.getScale(), local.getScale());
 
             // car Rotation
-            gc.rotate(Math.toDegrees(local.getRotation()) + 90);
-
+            gc.rotate(Math.toDegrees(local.getRotation()) - 90);
+			gc.drawImage(
+				carImage,
+				-TEXTURERADIUS,
+				-TEXTURERADIUS
+			);
 
             gc.restore();
         }

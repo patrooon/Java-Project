@@ -23,7 +23,7 @@ public class Car {
 	}
 	// Constructors
 	public Car() {
-		this.id = "Veh"+currentID;
+		this.id = "veh"+currentID;
 		currentID++;
 		transform= new Transform2D();
 	}
@@ -62,7 +62,7 @@ public class Car {
         TraCIPosition tracipos = Vehicle.getPosition(id);
         Vector2D newPos = new Vector2D(
                 (float) tracipos.getX(),
-                (float) tracipos.getY()
+                (float) tracipos.getY()*-1
         );
 
         if (lastPosition != null) {

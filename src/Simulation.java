@@ -133,7 +133,7 @@ public class Simulation {
 										Element laneElement = (Element) lane;
 										if (laneElement.getAttribute("id").equals(s)){
 											String[] numbers= laneElement.getAttribute("shape").split("[ ,]+");
-											stopLines.add(new Vector2D(Float.parseFloat(numbers[0]),Float.parseFloat(numbers[1])));
+											stopLines.add(new Vector2D(Float.parseFloat(numbers[0]),-1*Float.parseFloat(numbers[1])));
 										}
 
 									}
@@ -201,7 +201,7 @@ public class Simulation {
 	public void start(String cfg, int Delay) {
 		running = true;
 		load();
-		org.eclipse.sumo.libtraci.Simulation.start(new StringVector(new String[] {"sumo-gui", "-c", cfg, "--start", "--delay", String.valueOf(Delay)}));
+		org.eclipse.sumo.libtraci.Simulation.start(new StringVector(new String[] {"sumo", "-c", cfg, "--start", "--delay", String.valueOf(Delay)}));
 		org.eclipse.sumo.libtraci.Simulation.step();
 		trafficLights=getInitialTrafficLights();
 		cars=getInitialCars();
@@ -228,7 +228,7 @@ public class Simulation {
 		for (String id:keyList){
 			if (!idList.contains(id)){
 				cars.remove(id);
-				System.out.println("removed car from simulation"+id);
+				System.out.println("removed car from simulation "+id);
 			}
 		}
 		for (String id:idList){
@@ -337,7 +337,9 @@ public class Simulation {
 			}
 		}
 		stats.update();
-		printCars();
+		//
+		//
+		// printCars();
 
 	}
 
@@ -362,7 +364,7 @@ public class Simulation {
 	public void startSimulation(int delay) {
 		running = true;
 		load();
-		org.eclipse.sumo.libtraci.Simulation.start(new StringVector(new String[] {"sumo-gui", "-c", sumocfgPath, "--start", "--delay", String.valueOf(delay), "--quit-on-end"}));
+		org.eclipse.sumo.libtraci.Simulation.start(new StringVector(new String[] {"sumo", "-c", sumocfgPath, "--start", "--delay", String.valueOf(delay), "--quit-on-end"}));
 	}
 
 	public void reloadNetwork(String netxmlPath) {
