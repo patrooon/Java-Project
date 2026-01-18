@@ -1,4 +1,5 @@
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
@@ -112,7 +113,10 @@ public class GuiController {
     @FXML private Button chooseFileButton;
     @FXML private Button activeFileButton;
     @FXML private Button chooseNetButton;
-
+    
+    // Test Button
+   @FXML private Button stressTestButton;
+ 
     // Constants
     private static final double TEXTURERADIUS = 8;
 
@@ -386,6 +390,20 @@ public class GuiController {
 
         sim.setSumocfgPath(selectedConfigPath);
         if (restartCallback != null) restartCallback.run();
+    }
+    
+    // Stress Test
+    @FXML
+    private void stressTest() {
+    	synchronized (sim) {
+            for (int i = 0; i < 5; i++) {
+                sim.createNewCar("0", "20", "black", "route0");
+                sim.createNewCar("0", "20", "black", "route1");
+                sim.createNewCar("0", "20", "black", "route2");
+                sim.createNewCar("0", "20", "black", "route3");
+                
+            }
+        }
     }
 
     // CSV export
