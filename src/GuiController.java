@@ -1,5 +1,6 @@
 import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -29,9 +30,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +44,12 @@ public class GuiController {
     private GuiMain guiMain;
 
     // Textures
-    private Image carImage;
+    private Image carImageRed;
+	private Image carImageGreen;
+	private Image carImageBlue;
+	private Image carImageYellow;
+	private Image carImageBlack;
+	private Image carImageWhite;
     private Image trafficLightGrey;
     private Image trafficLightGreen;
     private Image trafficLightRed;
@@ -109,6 +117,7 @@ public class GuiController {
     @FXML private Button buttonDown;
 
     // Config buttons
+	@FXML private Button stressTestButton;
     @FXML private Button chooseFileButton;
     @FXML private Button activeFileButton;
     @FXML private Button chooseNetButton;
@@ -138,7 +147,13 @@ public class GuiController {
     }
 
     public void loadImagesFromDisk() {
-        carImage = new Image(new File("textures/car_icon.png").toURI().toString());
+        carImageRed = new Image(new File("textures/car_icon_red.png").toURI().toString());
+		carImageBlue = new Image(new File("textures/car_icon_blue.png").toURI().toString());
+		carImageGreen = new Image(new File("textures/car_icon_green.png").toURI().toString());
+		carImageYellow = new Image(new File("textures/car_icon_yellow.png").toURI().toString());
+		carImageBlack = new Image(new File("textures/car_icon_black.png").toURI().toString());
+		carImageWhite = new Image(new File("textures/car_icon_white.png").toURI().toString());
+
         trafficLightYellow = new Image(new File("textures/yellow_light.png").toURI().toString());
         trafficLightGreen = new Image(new File("textures/green_light.png").toURI().toString());
         trafficLightRed = new Image(new File("textures/red_light.png").toURI().toString());
@@ -154,13 +169,13 @@ public class GuiController {
 
     public void newCar() {
         if (sim == null) return;
-        sim.createNewCar("0", textFieldStartSpeed.getText(), comboBoxColors.getValue(), comboBoxRoutes.getValue());
+        sim.createNewCar("0", textFieldStartSpeed.getText(), sim.activeFilter.getEnumColorValue(comboBoxColors.getValue()), comboBoxRoutes.getValue());
     }
 
     public void currentCar() {
         if (sim == null) return;
         String curCar = comboBoxSelectVehicle.getValue();
-        labelVehicleColor.setText(sim.getCarsColorFromID(curCar));
+        labelVehicleColor.setText(sim.getCarsColorFromID(curCar).toString());
         labelVehicleSpeed.setText(sim.getCarsSpeedFromID(curCar));
         labelVehicleRoute.setText(sim.getCarsRouteFromID(curCar));
     }
@@ -241,7 +256,14 @@ public class GuiController {
         }
 
         // Draw cars
-        for (Car car : sim.getCars()) {
+		ArrayList<Car> filteredCars;
+		//if (sim.activeFilter!=null || !sim.activeFilter.initialized) {
+		//	filteredCars = sim.activeFilter.applyFilterOnArray(sim.getCars());
+		//}
+		//else{
+			filteredCars=new ArrayList<Car>(List.of(sim.getCars()));
+		//}
+        for (Car car : filteredCars) {
             Transform2D local = camera.getLocalTransformFromGlobal(car.getTransform());
 
             double x = local.getPosition().x + halfW;
@@ -253,11 +275,33 @@ public class GuiController {
 
             // car Rotation
             gc.rotate(Math.toDegrees(local.getRotation()) - 90);
-			gc.drawImage(
-				carImage,
-				-TEXTURERADIUS,
-				-TEXTURERADIUS
-			);
+			switch (car.getColor()){
+				case BLACK :
+					gc.drawImage(
+					carImageBlack, -TEXTURERADIUS, -TEXTURERADIUS);
+					break;
+				case BLUE:
+					gc.drawImage(
+						carImageBlue, -TEXTURERADIUS, -TEXTURERADIUS);
+					break;
+				case GREEN:
+					gc.drawImage(
+						carImageGreen, -TEXTURERADIUS, -TEXTURERADIUS);
+					break;
+				case YELLOW:
+					gc.drawImage(
+						carImageYellow, -TEXTURERADIUS, -TEXTURERADIUS);
+					break;
+				case WHITE:
+					gc.drawImage(
+						carImageWhite, -TEXTURERADIUS, -TEXTURERADIUS);
+					break;
+				default:
+					gc.drawImage(
+						carImageRed, -TEXTURERADIUS, -TEXTURERADIUS);
+					break;
+			}
+
 
             gc.restore();
         }
@@ -266,7 +310,7 @@ public class GuiController {
 
     @FXML
     public void initialize() {
-        comboBoxColors.setItems(FXCollections.observableArrayList("black", "white"));
+		comboBoxColors.setItems(FXCollections.observableArrayList("black", "white", "red", "blue", "green", "yellow"));
 
         if (speedChart != null) {
             speedSeries.setName("Average Speed");
@@ -387,8 +431,22 @@ public class GuiController {
         sim.setSumocfgPath(selectedConfigPath);
         if (restartCallback != null) restartCallback.run();
     }
+	// Stress Test
+	@FXML
+	private void stressTest() {
+		synchronized (sim) {
+			for (int i = 0; i < 5; i++) {
+				sim.createNewCar("0", "20", CarFilter.Colors.BLACK, "route0");
+				sim.createNewCar("0", "20", CarFilter.Colors.BLACK, "route1");
+				sim.createNewCar("0", "20", CarFilter.Colors.BLACK, "route2");
+				//sim.createNewCar("0", "20", "black", "route3");
 
-    // CSV export
+			}
+		}
+	}
+
+
+		// CSV export
     @FXML
     private void handleExportCsv() {
         if (sim == null) return;

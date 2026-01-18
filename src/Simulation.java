@@ -25,6 +25,7 @@ public class Simulation {
 	private ArrayList<Lane> lanes;
 	private route[] routes;
 	public boolean paused=false;
+	public CarFilter activeFilter=null;
 	private trafficLight[] trafficLights;
 	private Statistics stats;
 	private String sumocfgPath = "SumoConfig/hello.sumocfg";
@@ -36,6 +37,7 @@ public class Simulation {
 		trafficLights=new trafficLight[0];
 		stats=new Statistics(this);
 		lanes=new ArrayList<Lane>();
+		activeFilter=new CarFilter();
 		try {
 			loadNetwork("");
 		} catch (ParserConfigurationException e) {
@@ -50,10 +52,10 @@ public class Simulation {
 		Vehicle.add(c.getId(),routeID,"Car");
 		cars.put(c.getId(),c);
 	}
-	void createNewCar(String edge,String initialSpeed,String color,String route){
-		Car c=new Car();
+	void createNewCar(String edge, String initialSpeed, CarFilter.Colors color, String route){
+		Car c=new Car(color);
 		c.setSpeed(Integer.parseInt(initialSpeed));
-		c.setColor(color);
+		//c.setColor(CarFilter.Colors.BLACK);
 		addCar(c,route);
 	}
 	Car getCarFromID(String carID){
@@ -68,12 +70,12 @@ public class Simulation {
 		paused=!paused;
 	}
 
-	String getCarsColorFromID(String carID){
+	CarFilter.Colors getCarsColorFromID(String carID){
 		Car c=getCarFromID(carID);
 		if (c!=null){
 			return c.getColor();
 		}
-		return null;
+		return CarFilter.Colors.GREEN;
 
 	}
 	String getCarsSpeedFromID(String carID){
@@ -205,6 +207,7 @@ public class Simulation {
 		org.eclipse.sumo.libtraci.Simulation.step();
 		trafficLights=getInitialTrafficLights();
 		cars=getInitialCars();
+		routes=getInitialRoutes();
 	}
 	public trafficLight[] getInitialTrafficLights(){
 		String[] tlIDs= TrafficLight.getIDList().toArray(new String[0]);
@@ -365,6 +368,8 @@ public class Simulation {
 		running = true;
 		load();
 		org.eclipse.sumo.libtraci.Simulation.start(new StringVector(new String[] {"sumo", "-c", sumocfgPath, "--start", "--delay", String.valueOf(delay), "--quit-on-end"}));
+		step();
+		routes=getInitialRoutes();
 	}
 
 	public void reloadNetwork(String netxmlPath) {
@@ -393,7 +398,7 @@ public class Simulation {
 			return;
 		}
 		for (int i=0;i<n;i++){
-			createNewCar("","10","",RouteID);
+			createNewCar("","10", CarFilter.Colors.BLUE,RouteID);
 		}
 	}
 	public void add100Cars(){

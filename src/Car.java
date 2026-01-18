@@ -9,7 +9,7 @@ public class Car {
 	private double speed;
 	private String edge;
 	private String route;
-	private String color;//color as a hexcode
+	private CarFilter.Colors color= CarFilter.Colors.BLUE;
 	private Transform2D transform;
 	private Vector2D lastPosition = null;
 	private double angle = 0.0; // für die Rotation
@@ -35,6 +35,13 @@ public class Car {
 		//    System.out.println("vehicle initialized with invalid ID");
 		//}
 		this.id=id;
+		this.color= CarFilter.Colors.BLACK;
+		currentID++;
+		transform=new Transform2D();
+	}
+	public Car (CarFilter.Colors color){
+		this.id = "veh"+currentID;
+		this.color= color;
 		currentID++;
 		transform=new Transform2D();
 	}
@@ -88,15 +95,14 @@ public class Car {
 		}
 		System.out.println("id found");
 		//setSpeed(Vehicle.getSpeed(id));
-        //TODO look into tracipos and how to directly use it for rendering, rather than casting to vector2
         TraCIPosition tracipos=Vehicle.getPosition(id);
         transform.setPosition(new Vector2D((float) tracipos.getX(), (float) tracipos.getY()));//all this does is overwrite the position in transform with the one in sumo
 	*/
     }
-	public void setColor(String hexColor){
-		this.color=hexColor;
+	public void setColor(CarFilter.Colors color){
+		this.color=color;
 	}
-	public String getColor() {
+	public CarFilter.Colors getColor() {
 		return color;
 	}
 	public String getRoute(){

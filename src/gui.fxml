@@ -147,16 +147,16 @@
     						<content>
       						  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
        						     <children>
-         						       
+
            						         <VBox spacing="10" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20">
             								<Button fx:id="chooseFileButton" onAction="#handleChooseFile" text="Choose Cfg" />
             								<Button fx:id="chooseNetButton" onAction="#handleChooseNet" text="Choose Net" />
             								<Button fx:id="activeFileButton" onAction="#handleActivedFile" text="Active cfg" />
        									 </VBox>
-          						     
+
          						   </children>
       						  </AnchorPane>
-  						  </content>          
+  						  </content>
 						</Tab>
 
                         <Tab text="Filter">
@@ -174,6 +174,16 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
+							<Tab text="Test">
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+									<children>
+										<VBox spacing="10" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20">
+											<Button fx:id="stressTestButton" onAction="#stressTest" text="Start Test" />
+										</VBox>
+									</children>
+
+								</AnchorPane>
+							</Tab>
 
                         </tabs>
                     </TabPane>
