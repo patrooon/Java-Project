@@ -6,8 +6,8 @@
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="jj.net.xml"/>
-        <route-files value="jj.rou.xml"/>
+        <net-file value="bigger_simulation.net.xml"/>
+        <route-files value="bigger_simulation.rou.xml"/>
     </input>
 
 </sumoConfiguration>
