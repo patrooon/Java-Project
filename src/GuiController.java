@@ -70,6 +70,7 @@ public class GuiController {
     @FXML private Label labelTravelTIme;
 
     // Create vehicle tab
+    @FXML private ComboBox<String> comboBoxEdges;
     @FXML private ComboBox<String> comboBoxColors;
     @FXML private ComboBox<String> comboBoxRoutes;
     @FXML private TextField textFieldStartSpeed;
@@ -147,6 +148,7 @@ public class GuiController {
 
     public void comboBoxFill() {
         if (sim == null) return;
+        comboBoxEdges.setItems(FXCollections.observableArrayList());
         comboBoxRoutes.setItems(FXCollections.observableArrayList(sim.getRouteIDs()));
         comboBoxSelectVehicle.setItems(FXCollections.observableArrayList(sim.getCarIDs()));
         comboBoxSelectLight.setItems(FXCollections.observableArrayList(sim.getTrafficLightIDs()));
