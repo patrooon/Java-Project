@@ -48,7 +48,6 @@ public class Camera2D {
 		return newPosition;
 	}
 	public Transform2D getLocalTransformFromGlobal(Transform2D global){
-		//TODO verify that rotation and zoom work properly
 		Vector2D newPosition=global.getPosition().subtract(position);
 		newPosition.x*=zoom;
 		newPosition.y*=zoom;

@@ -42,6 +42,28 @@
                     <Label layoutX="278.0" layoutY="461.0" text="Zoom:" />
                     <Button fx:id="buttonZoomIn" layoutX="314.0" layoutY="456.0" onAction="#zoomIn" prefWidth="27.0" text="+" />
                     <Button fx:id="buttonZoomOut" layoutX="347.0" layoutY="456.0" onAction="#zoomOut" prefWidth="27.0" text="-" />
+               <Pane layoutX="9.0" layoutY="552.0" prefHeight="61.0" prefWidth="252.0">
+                  <children>
+                     <Label layoutY="5.0" text="Add cfg:" />
+      								<Button fx:id="chooseFileButton" layoutX="6.0" layoutY="24.0" onAction="#handleChooseFile" text="Choose Cfg" />
+      								<Button fx:id="chooseNetButton" layoutX="94.0" layoutY="24.0" onAction="#handleChooseNet" text="Choose Net" />
+      								<Button fx:id="activeFileButton" layoutX="184.0" layoutY="24.0" onAction="#handleActivedFile" text="Active cfg" />
+                  </children>
+               </Pane>
+               <Pane layoutX="249.0" layoutY="492.0" prefHeight="61.0" prefWidth="92.0">
+                  <children>
+                     <Label layoutY="6.0" text="Stress Test:" />
+      											<Button fx:id="stressTestButton" layoutX="14.0" layoutY="23.0" onAction="#stressTest" text="Start Test" />
+                  </children>
+               </Pane>
+               <Pane layoutX="3.0" layoutY="491.0" prefHeight="53.0" prefWidth="200.0">
+                  <children>
+      
+                          <!-- Start/Stop button (visible!) -->
+                          <Button fx:id="buttonStartStopSimulation" layoutX="46.0" layoutY="27.0" onAction="#togglePause" text="Start/Stop Simulation" />
+                     <Label layoutX="6.0" layoutY="6.0" text="Start/Stop Simulation:" />
+                  </children>
+               </Pane>
                 </children>
             </AnchorPane>
 
@@ -143,47 +165,22 @@
                                     </AnchorPane>
                                 </content>
                             </Tab>
-                            <Tab text="add Cfg">
-    						<content>
-      						  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-       						     <children>
-
-           						         <VBox spacing="10" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20">
-            								<Button fx:id="chooseFileButton" onAction="#handleChooseFile" text="Choose Cfg" />
-            								<Button fx:id="chooseNetButton" onAction="#handleChooseNet" text="Choose Net" />
-            								<Button fx:id="activeFileButton" onAction="#handleActivedFile" text="Active cfg" />
-       									 </VBox>
-
-         						   </children>
-      						  </AnchorPane>
-  						  </content>
-						</Tab>
 
                         <Tab text="Filter">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
                                         <Label layoutX="14.0" layoutY="14.0" text="Filter by Color:" />
-                                        <CheckBox layoutX="16.0" layoutY="68.0" mnemonicParsing="false" text="White" />
-                                        <CheckBox layoutX="16.0" layoutY="43.0" mnemonicParsing="false" text="Black" />
-                                        <CheckBox layoutX="111.0" layoutY="68.0" mnemonicParsing="false" text="Blue" />
-                                        <CheckBox layoutX="111.0" layoutY="43.0" mnemonicParsing="false" text="Red" />
-                                        <CheckBox layoutX="212.0" layoutY="68.0" mnemonicParsing="false" text="Green" />
-                                        <CheckBox layoutX="212.0" layoutY="43.0" mnemonicParsing="false" text="Yellow" />
+                                        <CheckBox fx:id="checkBoxWhite" layoutX="16.0" layoutY="68.0" mnemonicParsing="false" text="White" />
+                                        <CheckBox fx:id="checkBoxBlack" layoutX="16.0" layoutY="43.0" mnemonicParsing="false" text="Black" />
+                                        <CheckBox fx:id="checkBoxBlue" layoutX="111.0" layoutY="68.0" mnemonicParsing="false" text="Blue" />
+                                        <CheckBox fx:id="checkBoxRed" layoutX="111.0" layoutY="43.0" mnemonicParsing="false" text="Red" />
+                                        <CheckBox fx:id="checkBoxGreen" layoutX="212.0" layoutY="68.0" mnemonicParsing="false" text="Green" />
+                                        <CheckBox fx:id="checkBoxYellow" layoutX="212.0" layoutY="43.0" mnemonicParsing="false" text="Yellow" />
                                     </children>
                                 </AnchorPane>
                             </content>
                         </Tab>
-							<Tab text="Test">
-								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-									<children>
-										<VBox spacing="10" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20">
-											<Button fx:id="stressTestButton" onAction="#stressTest" text="Start Test" />
-										</VBox>
-									</children>
-
-								</AnchorPane>
-							</Tab>
 
                         </tabs>
                     </TabPane>
@@ -220,9 +217,6 @@
                             </LineChart>
                         </children>
                     </Pane>
-
-                    <!-- Start/Stop button (visible!) -->
-                    <Button fx:id="buttonStartStopSimulation" layoutX="95.0" layoutY="582.0" onAction="#togglePause" text="Start/Stop Simulation" />
                 </children>
             </AnchorPane>
 

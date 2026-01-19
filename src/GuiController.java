@@ -169,8 +169,14 @@ public class GuiController {
 
     public void newCar() {
         if (sim == null) return;
-        sim.createNewCar("0", textFieldStartSpeed.getText(), sim.activeFilter.getEnumColorValue(comboBoxColors.getValue()), comboBoxRoutes.getValue());
-    }
+		if (textFieldStartSpeed.getText()==null || textFieldStartSpeed.getText().length()==0){
+			throw new MissingValueException();
+		}
+		else{
+			sim.createNewCar("0", textFieldStartSpeed.getText(), sim.activeFilter.getEnumColorValue(comboBoxColors.getValue()), comboBoxRoutes.getValue());
+   	 }
+	}
+
 
     public void currentCar() {
         if (sim == null) return;
